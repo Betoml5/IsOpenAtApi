@@ -6,8 +6,8 @@ const USER = encodeURIComponent(config.dbUser); //Esto es para los caracteres es
 const PASSWORD = encodeURIComponent(config.dbPassword);
 const DB_NAME = config.dbName;
 
-const MONGO_URI = `mongodb+srv://${USER}:${PASSWORD}@${config.dbHost}:${config.dbPort}/${DB_NAME}?retryWrites=true&w=majority`;
-
+// const MONGO_URI = `mongodb+srv://${USER}:${PASSWORD}@${config.dbHost}:${config.dbPort}/${DB_NAME}?retryWrites=true&w=majority`;
+const MONGO_URI = `mongodb+srv://IsOpenAtAdmin:${PASSWORD}@isopenat.gkqm7.mongodb.net/${DB_NAME}?retryWrites=true&w=majority`;
 class UserService {
   constructor() {
     this.client = mongoose;
@@ -18,11 +18,14 @@ class UserService {
     const user = await User.findById(id).exec();
     return user;
   }
+
   async createUser(userName, email, password) {
     const newUser = new User();
     newUser.userName = userName;
     newUser.email = email;
     newUser.password = password;
+    newUser.save();
+    return newUser;
   }
 }
 

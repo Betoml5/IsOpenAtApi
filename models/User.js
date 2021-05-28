@@ -9,4 +9,4 @@ const UserModelSchema = new Schema({
   favorites: [],
 });
 
-module.exports = mongoose.model("UserModel", UserModelSchema);
+module.exports = mongoose.model("User", UserModelSchema);

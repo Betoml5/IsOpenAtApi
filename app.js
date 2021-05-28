@@ -1,7 +1,8 @@
 const express = require("express");
 const cors = require("cors");
 const app = express();
-const UserService = require("./services/User");
+const userRoutes = require("./routes/User");
+const mongoose = require("mongoose");
 
 // Archivos de rutas
 
@@ -13,13 +14,8 @@ app.use(cors());
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
-app.get("/hola", (req, res) => {
-  const User = new UserService();
-
-  res.status(200).send("Hola");
-});
 
 //Routes
-// app.use("/api/users", user_routes); // Aqui va el archivo de rutas;
+app.use("/api/users", userRoutes); // Aqui va el archivo de rutas;
 
 module.exports = app;
