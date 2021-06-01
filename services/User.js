@@ -27,6 +27,11 @@ class UserService {
     newUser.save();
     return newUser;
   }
+
+  async getUsers() {
+    const users = await User.find({}).exec();
+    return users;
+  }
 }
 
 module.exports = UserService;
