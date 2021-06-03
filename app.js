@@ -2,7 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const app = express();
 const userRoutes = require("./routes/User");
-const mongoose = require("mongoose");
+const passport = require("passport");
 
 // Archivos de rutas
 
@@ -14,6 +14,7 @@ app.use(cors());
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
+require("./services/Auth/index");
 
 //Routes
 app.use("/api/users", userRoutes); // Aqui va el archivo de rutas;

@@ -4,12 +4,14 @@ const bcrypt = require("bcrypt");
 const SALT_WORK_FACTOR = 10;
 
 const UserModelSchema = new Schema({
-  userName: String,
+  username: { type: String },
   email: { type: String, unique: true, lowercase: true },
   password: { type: String, required: true },
   favorites: [],
 });
 
+//Aqui lo que hacemos es que antes de que se guarde el usuario, vamos a encriptar la constraseña
+// OJO SI USAMOS ARROW FUNCTIONS, VAMOS A TENER PROBLEMAS CON THIS.
 UserModelSchema.pre("save", async function (next) {
   if (!this.isModified("password")) return next();
 
@@ -23,9 +25,9 @@ UserModelSchema.pre("save", async function (next) {
 });
 
 UserModelSchema.methods.validatePassword = async function validatePassword(
-  data
+  password
 ) {
-  return bcrypt.compare(data, this.password);
+  return bcrypt.compare(password, this.password);
 };
 
 module.exports = mongoose.model("User", UserModelSchema);
