@@ -5,9 +5,9 @@ class RestaurantService extends Shop {
     super();
   }
 
-  async addFood(id, food) {
+  async addFood(shopId, food) {
     try {
-      const newFood = await Shop.findByIdAndUpdate(id, {
+      const newFood = await Shop.findByIdAndUpdate(shopId, {
         $push: { menu: food },
       });
 
@@ -28,14 +28,16 @@ class RestaurantService extends Shop {
     }
   }
 
-  async addPromo(promo){
-      try {
-          
-      } catch (error) {
-          
-      }
+  async isPromo(shopId, promo) {
+    try {
+      const shop = Shop.findById(shopId);
+      shop.promo = promo;
+      shop.save();
+      return shop;
+    } catch (error) {
+      return error;
+    }
   }
-
 }
 
 module.exports = RestaurantService;

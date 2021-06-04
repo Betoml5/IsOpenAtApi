@@ -11,7 +11,7 @@ router.post("/addfood/:shopId?", async (req, res, next) => {
 
   try {
     const food = await RestaurantServiceLib.addFood(shopId, newFood);
-    return res.status(200).send({ food });
+    return res.status(200).send(food.menu);
   } catch (error) {
     next(error);
   }
@@ -26,6 +26,18 @@ router.delete("/removefood/:shopId?/:foodIndex?", async (req, res, next) => {
       foodIndex
     );
     return res.status(200).send({ restaurantId });
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.patch("/ispromo/:shopId?", async (req, res, next) => {
+  const { shopId } = req.params;
+  const { promo } = req.body;
+
+  try {
+    await RestaurantServiceLib.isPromo(shopId, promo);
+    return res.status(200).send({ message: "Is Promo now" });
   } catch (error) {
     next(error);
   }
