@@ -37,12 +37,10 @@ passport.use(
   )
 );
 
+// Con este middleware, vamos a verificar el token en cada peticion.
+// Tenemos que ponerlo en cada ruta, para valdiar
 passport.use(
-  new JWTStrategy(
-    {
-      secretOrKey: config.authJwtSecret,
-      jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken("secret_token"),
-    },
+  new JWTStrategy({secretOrKey: config.authJwtSecret,jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),},
     (token, done) => {
       try {
         if (!token) {

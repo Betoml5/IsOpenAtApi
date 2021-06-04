@@ -19,15 +19,17 @@ router.post("/user", async (req, res, next) => {
 router.post("/login", async (req, res, next) => {
   passport.authenticate("login", async (err, user, info) => {
     try {
+      // Verificamos si hubo algun error o no hay usuario.
       if (err || !user) {
         const error = new Error("New error");
         return next(err);
       }
 
+      // Req.login nos lo proporciona passport.
       req.login(user, { session: false }, async (err) => {
         if (err) return next(err);
         const body = { _id: user._id, username: user.username };
-        const token = jwt.sign({ user: body }, "secret_token");
+        const token = jwt.sign({ user: body }, config.authJwtSecret);
         return res.status(200).send({ token, body });
       });
     } catch (e) {
@@ -39,14 +41,33 @@ router.post("/login", async (req, res, next) => {
 router.get("/users", async (req, res, next) => {
   try {
     const users = await UserServiceLib.getUsers();
-    console.log(users);
     return res.status(200).send({ users });
   } catch (error) {
     next(error);
   }
 });
 
-router.get("/user/:id", async (req, res, next) => {
+// Cuando intentemos entrar al perfi de usuario
+// Validamos antes si hay un JWT valido.
+
+router.get(
+  "/profile/:id?",
+  passport.authenticate("jwt", { session: false }),
+  async (req, res, next) => {
+    const { id } = req.params;
+    try {
+      const user = await UserServiceLib.getUserById(id);
+      if (!user) return res.status(404).send({ message: "User not found" });
+
+      return res.status(200).send({ user });
+    } catch (error) {
+      next(error);
+      return res.status(401).send({ message: "Falta el token", error });
+    }
+  }
+);
+
+router.get("/user/:id?", async (req, res, next) => {
   try {
     const { id } = req.params;
     const user = await UserServiceLib.getUserById(id);
