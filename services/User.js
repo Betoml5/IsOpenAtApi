@@ -52,14 +52,14 @@ class UserService {
       newUser.username = username;
       newUser.email = email;
       newUser.password = password;
-      newUser.save();
+      newUser.save().catch((err) => console.log(err));
       return newUser;
     } catch (error) {
       return error;
     }
   }
 
-  async deleteUserById({ id }) {
+  async deleteUserById(id) {
     try {
       const userId = await User.findByIdAndDelete(id).exec();
       return userId;

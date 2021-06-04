@@ -2,7 +2,8 @@ const express = require("express");
 const cors = require("cors");
 const app = express();
 const userRoutes = require("./routes/User");
-const passport = require("passport");
+const shopRoutes = require("./routes/Shop");
+const restaurantRoutes = require("./routes/Restaurant");
 
 // Archivos de rutas
 
@@ -17,6 +18,8 @@ app.use(express.json());
 require("./services/Auth/index");
 
 //Routes
-app.use("/api/users", userRoutes); // Aqui va el archivo de rutas;
+app.use("/api/users", userRoutes);
+app.use("/api/shops", shopRoutes);
+app.use("/api/restaurants", restaurantRoutes); // Aqui va el archivo de rutas;
 
 module.exports = app;

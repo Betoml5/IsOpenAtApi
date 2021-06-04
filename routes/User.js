@@ -6,7 +6,7 @@ const UserServiceLib = new UserService();
 const jwt = require("jsonwebtoken");
 const { config } = require("../config");
 
-router.post("/user", async (req, res, next) => {
+router.post("/create", async (req, res, next) => {
   const { username, password, email } = req.body;
   try {
     const user = await UserServiceLib.createUser(username, email, password);
@@ -38,7 +38,7 @@ router.post("/login", async (req, res, next) => {
   })(req, res, next);
 });
 
-router.get("/users", async (req, res, next) => {
+router.get("/all", async (req, res, next) => {
   try {
     const users = await UserServiceLib.getUsers();
     return res.status(200).send({ users });
