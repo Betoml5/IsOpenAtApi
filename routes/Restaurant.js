@@ -43,4 +43,16 @@ router.patch("/ispromo/:shopId?", async (req, res, next) => {
   }
 });
 
+router.patch("/ishot/:shopId?", async (req, res, next) => {
+  const { shopId } = req.params;
+  const { isHot } = req.body;
+
+  try {
+    await RestaurantServiceLib.isHot(shopId, isHot);
+    return res.status(200).send({ message: "This restaurant is hot now!" });
+  } catch (error) {
+    next(error);
+  }
+});
+
 module.exports = router;

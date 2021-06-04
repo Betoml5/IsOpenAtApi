@@ -38,6 +38,17 @@ class RestaurantService extends Shop {
       return error;
     }
   }
+
+  async isHot(shopId, isHot) {
+    try {
+      const shop = await Shop.findById(shopId);
+      shop.hot = isHot;
+      shop.save();
+      return shop;
+    } catch (error) {
+      return error;
+    }
+  }
 }
 
 module.exports = RestaurantService;
