@@ -8,7 +8,7 @@ const ShopModelSchema = new Schema({
   avgPrice: { type: Number },
   openNow: Boolean,
   stars: Number,
-  schedule: { type: Object, required: false },
+  schedule: Object,
   hot: Boolean,
   promo: Boolean,
   phone: String,

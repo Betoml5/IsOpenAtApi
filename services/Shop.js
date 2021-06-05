@@ -17,13 +17,38 @@ class ShopService {
     this.client.connect(MONGO_URI);
   }
 
-  async create(name, email, address, phone) {
+  async create(
+    name,
+    email,
+    address,
+    phone,
+    openNow = false,
+    hot = false,
+    promo = false,
+    stars = 0,
+    avgPrice = 0,
+    schedule = {
+      moday: "",
+      tuesday: "",
+      wednesday: "",
+      thursday: "",
+      friday: "",
+      saturday: "",
+      sunday: "",
+    }
+  ) {
     const newShop = new Shop();
 
     newShop.name = name;
     newShop.email = email;
     newShop.address = address;
     newShop.phone = phone;
+    newShop.openNow = openNow;
+    newShop.hot = hot;
+    newShop.promo = promo;
+    newShop.stars = stars;
+    newShop.avgPrice = avgPrice;
+    newShop.schedule = schedule;
 
     newShop.save().catch((err) => console.log(err));
     return newShop;
@@ -69,9 +94,9 @@ class ShopService {
       return error;
     }
   }
-  async isPromo(id, isPromo) {
+  async isPromo(shopId, promo) {
     try {
-      Shop.findByIdAndUpdate(id, { promo: isPromo });
+      await Shop.findByIdAndUpdate(shopId, { promo: promo });
     } catch (error) {
       return error;
     }

@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const ShopService = require("../services/Shop");
 const ShopModel = require("../models/Shop");
+const Shop = require("../models/Shop");
 
 const ShopServiceLib = new ShopService();
 
@@ -45,6 +46,7 @@ router.delete("/:id?", async (req, res, next) => {
   }
 });
 
+// TODO -> Ver si realmente necesitamos esta ruta
 router.patch("/:id?", async (req, res, next) => {
   const { id } = req.params;
   const { name, email, address } = req.body;
@@ -57,6 +59,40 @@ router.patch("/:id?", async (req, res, next) => {
   }
 });
 
+router.patch("/ispromo/:shopId?", async (req, res, next) => {
+  const { shopId } = req.params;
+  const { promo } = req.body;
+  try {
+    const shopUpdate = await Shop.findOneAndUpdate(shopId, { promo: promo });
+    return res.status(200).send({ shopUpdate });
+  } catch (error) {
+    next(error);
+  }
+});
 
+router.patch("/ishot/:shopId?", async (req, res, next) => {
+  const { shopId } = req.params;
+  const { hot } = req.body;
+  try {
+    const shopUpdate = await Shop.findOneAndUpdate(shopId, { hot: hot });
+    return res.status(200).send({ shopUpdate });
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.patch("/isopenow/:shopId?", async (req, res, next) => {
+  const { shopId } = req.params;
+  const { openNow } = req.body;
+
+  try {
+    const shopUpdate = await Shop.findOneAndUpdate(shopId, {
+      openNow: openNow,
+    });
+    return res.status(200).send({ shopUpdate });
+  } catch (error) {
+    next(error);
+  }
+});
 
 module.exports = router;
