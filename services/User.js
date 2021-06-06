@@ -67,6 +67,28 @@ class UserService {
       return error;
     }
   }
+
+  async addFavorites(userId, shopId) {
+    try {
+      const userUpdated = await User.findOneAndUpdate(userId, {
+        $push: { favorites: shopId },
+      });
+
+      return userUpdated;
+    } catch (error) {
+      return error;
+    }
+  }
+
+  async getFavorites(userId) {
+    try {
+      const user = await User.findById(userId);
+      console.log(user.favorites);
+      return user.favorites;
+    } catch (error) {
+      return error;
+    }
+  }
 }
 
 module.exports = UserService;

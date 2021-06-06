@@ -31,4 +31,14 @@ router.delete("/removefood/:shopId?/:foodIndex?", async (req, res, next) => {
   }
 });
 
+router.get("/:shopId?/menu", async (req, res, next) => {
+  const { shopId } = req.params;
+  try {
+    const menu = await RestaurantServiceLib.getMenu(shopId);
+    return res.status(200).send({ menu });
+  } catch (error) {
+    next(error);
+  }
+});
+
 module.exports = router;

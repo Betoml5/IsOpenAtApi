@@ -5,6 +5,7 @@ const router = express.Router();
 const UserServiceLib = new UserService();
 const jwt = require("jsonwebtoken");
 const { config } = require("../config");
+const Shop = require("../models/Shop");
 
 router.post("/create", async (req, res, next) => {
   const { username, password, email } = req.body;
@@ -72,6 +73,26 @@ router.get("/user/:id?", async (req, res, next) => {
     const { id } = req.params;
     const user = await UserServiceLib.getUserById(id);
     return res.status(200).send({ user });
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.patch("/addfavorites/:userId?/:shopId?", async (req, res, next) => {
+  const { userId, shopId } = req.params;
+  try {
+    const userUpdated = await UserServiceLib.addFavorites(userId, shopId);
+    return res.status(200).send({ userUpdated });
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.get("/:userId?/favorites", async (req, res, next) => {
+  const { userId } = req.params;
+  try {
+    const favorites = await UserServiceLib.getFavorites(userId);
+    return res.status(200).send({ favorites });
   } catch (error) {
     next(error);
   }

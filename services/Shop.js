@@ -65,7 +65,7 @@ class ShopService {
 
   async getById(id) {
     try {
-      const shop = await Shop.findById(id);
+      const shop = await Shop.findById(id).exec();
       return shop;
     } catch (error) {
       return error;
@@ -90,13 +90,6 @@ class ShopService {
       }).exec();
 
       return shopId;
-    } catch (error) {
-      return error;
-    }
-  }
-  async isPromo(shopId, promo) {
-    try {
-      await Shop.findByIdAndUpdate(shopId, { promo: promo });
     } catch (error) {
       return error;
     }

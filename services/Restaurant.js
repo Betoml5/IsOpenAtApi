@@ -28,12 +28,10 @@ class RestaurantService extends Shop {
     }
   }
 
-  async isHot(shopId, isHot) {
+  async getMenu(shopId) {
     try {
       const shop = await Shop.findById(shopId);
-      shop.hot = isHot;
-      shop.save();
-      return shop;
+      return shop.menu;
     } catch (error) {
       return error;
     }
