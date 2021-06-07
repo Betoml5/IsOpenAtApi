@@ -15,7 +15,7 @@ router.get("/all", async (req, res, next) => {
   }
 });
 
-router.get("/:id?", async (req, res, next) => {
+router.get("/shop/:id?", async (req, res, next) => {
   const { id } = req.params;
   try {
     const shop = await ShopServiceLib.getById(id);
@@ -36,7 +36,7 @@ router.post("/create", async (req, res, next) => {
   }
 });
 
-router.delete("/:id?", async (req, res, next) => {
+router.delete("/remove/:id?", async (req, res, next) => {
   const { id } = req.params;
   try {
     const deletedId = await ShopServiceLib.delete(id);
@@ -47,7 +47,7 @@ router.delete("/:id?", async (req, res, next) => {
 });
 
 // TODO -> Ver si realmente necesitamos esta ruta
-router.patch("/:id?", async (req, res, next) => {
+router.patch("/update/:id?", async (req, res, next) => {
   const { id } = req.params;
   const { name, email, address } = req.body;
 
@@ -90,6 +90,33 @@ router.patch("/isopenow/:shopId?", async (req, res, next) => {
       openNow: openNow,
     });
     return res.status(200).send({ shopUpdate });
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.get("/avg/:shopId?", async (req, res, next) => {
+  const { shopId } = req.params;
+  try {
+    const { menu } = await Shop.findById(shopId);
+    let allPricesSum = 0;
+    //Sum every price in the menu
+    menu.forEach((element) => {
+      allPricesSum += element.price;
+    });
+    // Divide them in the menu length
+    const avgPrice = Math.floor(allPricesSum / menu.length);
+    return res.status(200).send({ avgPrice });
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.get("/famous", async (req, res, next) => {
+  try {
+    const shops = await Shop.find({});
+
+    return res.status(200).send({ shops });
   } catch (error) {
     next(error);
   }

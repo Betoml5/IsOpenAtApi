@@ -88,7 +88,7 @@ router.patch("/addfavorites/:userId?/:shopId?", async (req, res, next) => {
   }
 });
 
-router.get("/:userId?/favorites", async (req, res, next) => {
+router.get("/favorites/:userId?", async (req, res, next) => {
   const { userId } = req.params;
   try {
     const favorites = await UserServiceLib.getFavorites(userId);

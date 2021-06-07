@@ -31,7 +31,7 @@ router.delete("/removefood/:shopId?/:foodIndex?", async (req, res, next) => {
   }
 });
 
-router.get("/:shopId?/menu", async (req, res, next) => {
+router.get("/menu/:shopId?", async (req, res, next) => {
   const { shopId } = req.params;
   try {
     const menu = await RestaurantServiceLib.getMenu(shopId);
