@@ -52,7 +52,7 @@ class UserService {
       newUser.username = username;
       newUser.email = email;
       newUser.password = password;
-      newUser.save().catch((err) => console.log(err));
+      newUser.save();
       return newUser;
     } catch (error) {
       return error;
@@ -61,7 +61,7 @@ class UserService {
 
   async deleteUserById(id) {
     try {
-      const userId = await User.findByIdAndDelete(id).exec();
+      const userId = await User.findByIdAndDelete(id, { new: true }).exec();
       return userId;
     } catch (error) {
       return error;
@@ -70,9 +70,13 @@ class UserService {
 
   async addFavorites(userId, shopId) {
     try {
-      const userUpdated = await User.findOneAndUpdate(userId, {
-        $push: { favorites: shopId },
-      });
+      const userUpdated = await User.findOneAndUpdate(
+        userId,
+        {
+          $push: { favorites: shopId },
+        },
+        { new: true }
+      );
 
       return userUpdated;
     } catch (error) {

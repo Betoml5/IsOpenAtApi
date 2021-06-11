@@ -50,13 +50,13 @@ class ShopService {
     newShop.avgPrice = avgPrice;
     newShop.schedule = schedule;
 
-    newShop.save().catch((err) => console.log(err));
+    newShop.save({ new: true }).catch((err) => console.log(err));
     return newShop;
   }
 
   async delete(id) {
     try {
-      const deletedId = Shop.findOneAndDelete({ _id: id });
+      const deletedId = Shop.findOneAndDelete({ _id: id }, { new: true });
       return deletedId;
     } catch (error) {
       return error;
@@ -83,11 +83,15 @@ class ShopService {
 
   async update(id, name, email, address) {
     try {
-      const shopId = Shop.findByIdAndUpdate(id, {
-        name,
-        email,
-        address,
-      }).exec();
+      const shopId = Shop.findByIdAndUpdate(
+        id,
+        {
+          name,
+          email,
+          address,
+        },
+        { new: true }
+      ).exec();
 
       return shopId;
     } catch (error) {

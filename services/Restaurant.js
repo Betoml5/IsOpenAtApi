@@ -7,9 +7,13 @@ class RestaurantService extends Shop {
 
   async addFood(shopId, food) {
     try {
-      const newFood = await Shop.findByIdAndUpdate(shopId, {
-        $push: { menu: food },
-      });
+      const newFood = await Shop.findByIdAndUpdate(
+        shopId,
+        {
+          $push: { menu: food },
+        },
+        { new: true }
+      );
 
       return newFood;
     } catch (error) {

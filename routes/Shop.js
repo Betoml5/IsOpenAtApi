@@ -17,6 +17,7 @@ router.get("/all", async (req, res, next) => {
 
 router.get("/shop/:id?", async (req, res, next) => {
   const { id } = req.params;
+
   try {
     const shop = await ShopServiceLib.getById(id);
     return res.status(200).send({ shop });
@@ -63,7 +64,11 @@ router.patch("/ispromo/:shopId?", async (req, res, next) => {
   const { shopId } = req.params;
   const { promo } = req.body;
   try {
-    const shopUpdate = await Shop.findOneAndUpdate(shopId, { promo: promo });
+    const shopUpdate = await Shop.findOneAndUpdate(
+      shopId,
+      { promo: promo },
+      { new: true }
+    );
     return res.status(200).send({ shopUpdate });
   } catch (error) {
     next(error);
@@ -74,7 +79,11 @@ router.patch("/ishot/:shopId?", async (req, res, next) => {
   const { shopId } = req.params;
   const { hot } = req.body;
   try {
-    const shopUpdate = await Shop.findOneAndUpdate(shopId, { hot: hot });
+    const shopUpdate = await Shop.findOneAndUpdate(
+      shopId,
+      { hot: hot },
+      { new: true }
+    );
     return res.status(200).send({ shopUpdate });
   } catch (error) {
     next(error);
@@ -86,9 +95,13 @@ router.patch("/isopenow/:shopId?", async (req, res, next) => {
   const { openNow } = req.body;
 
   try {
-    const shopUpdate = await Shop.findOneAndUpdate(shopId, {
-      openNow: openNow,
-    });
+    const shopUpdate = await Shop.findOneAndUpdate(
+      shopId,
+      {
+        openNow: openNow,
+      },
+      { new: true }
+    );
     return res.status(200).send({ shopUpdate });
   } catch (error) {
     next(error);
@@ -98,11 +111,11 @@ router.patch("/isopenow/:shopId?", async (req, res, next) => {
 router.get("/avg/:shopId?", async (req, res, next) => {
   const { shopId } = req.params;
   try {
-    const { menu } = await Shop.findById(shopId);
+    const { menu } = await Shop.findById(shopId, { new: true });
     let allPricesSum = 0;
     //Sum every price in the menu
-    menu.forEach((element) => {
-      allPricesSum += element.price;
+    menu.forEach((comida) => {
+      allPricesSum += comida.price;
     });
     // Divide them in the menu length
     const avgPrice = Math.floor(allPricesSum / menu.length);
@@ -112,11 +125,22 @@ router.get("/avg/:shopId?", async (req, res, next) => {
   }
 });
 
+// HTTP 4 GET, POST, DELETE, PUT, PATCH;
+
+//API.COM/FAMOUS
 router.get("/famous", async (req, res, next) => {
   try {
     const shops = await Shop.find({});
+    let starsAndName = [];
 
-    return res.status(200).send({ shops });
+    shops.forEach((element) => {
+      starsAndName.push({
+        name: element.name,
+        stars: element.stars,
+      });
+    });
+    const mostFamous = starsAndName.filter((item) => item.stars >= 3);
+    return res.status(200).send({ mostFamous });
   } catch (error) {
     next(error);
   }

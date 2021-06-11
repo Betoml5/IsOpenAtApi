@@ -7,3 +7,4 @@ app.listen(config.port, () => {
   console.log(`Servidor corriendo correctamente en: localhost:${config.port}`);
   isDev && console.log(`Estas en modo  ${config.dev ? "Dev" : "Produccion"}`);
 });
+
