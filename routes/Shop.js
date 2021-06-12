@@ -125,9 +125,6 @@ router.get("/avg/:shopId?", async (req, res, next) => {
   }
 });
 
-// HTTP 4 GET, POST, DELETE, PUT, PATCH;
-
-//API.COM/FAMOUS
 router.get("/famous", async (req, res, next) => {
   try {
     const shops = await Shop.find({});

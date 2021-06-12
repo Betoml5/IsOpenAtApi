@@ -83,6 +83,17 @@ class UserService {
       return error;
     }
   }
+  // Hay que checar
+  async removeFavorite(userId, shopIndex) {
+    try {
+      const user = await User.findById(userId);
+      user.favorites.splice(shopIndex, 1);
+      user.save({ new: true });
+      return user;
+    } catch (error) {
+      return error;
+    }
+  }
 
   async getFavorites(userId) {
     try {

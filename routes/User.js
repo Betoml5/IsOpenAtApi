@@ -6,6 +6,7 @@ const UserServiceLib = new UserService();
 const jwt = require("jsonwebtoken");
 const { config } = require("../config");
 const Shop = require("../models/Shop");
+const User = require("../models/User");
 
 router.post("/create", async (req, res, next) => {
   const { username, password, email } = req.body;
@@ -83,6 +84,17 @@ router.patch("/addfavorites/:userId?/:shopId?", async (req, res, next) => {
   try {
     const userUpdated = await UserServiceLib.addFavorites(userId, shopId);
     return res.status(200).send({ userUpdated });
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.patch("/deletefavorite/:userId?/:shopIndex?", async (req, res, next) => {
+  const { userId, shopIndex } = req.params;
+
+  try {
+    const removedShop = await UserServiceLib.removeFavorite(userId, shopIndex);
+    return res.status(200).send({ removedShop });
   } catch (error) {
     next(error);
   }
