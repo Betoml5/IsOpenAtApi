@@ -110,6 +110,12 @@ router.get("/favorites/:userId?", async (req, res, next) => {
   }
 });
 
+// Test para queries. ?name=beto&apellido=martinez
+router.get("/query", (req, res) => {
+  console.log(req.query);
+  res.send(req.query);
+});
+
 //Test method. Just avoid it
 router.post("/", (req, res) => {
   return res.status(200).send("Hola mundo");
