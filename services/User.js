@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
-const User = require("../models/User");
+const User = require("../components/User/User");
 const { config } = require("../config");
-const passport = require("passport");
 
 const USER = encodeURIComponent(config.dbUser); //Esto es para los caracteres especiales.
 const PASSWORD = encodeURIComponent(config.dbPassword);
