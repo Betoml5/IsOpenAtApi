@@ -4,15 +4,15 @@ const app = express();
 const userRoutes = require("./routes/User.js");
 const shopRoutes = require("./routes/Shop");
 const restaurantRoutes = require("./routes/Restaurant");
+const connectDB = require('./db');
+const MONGO_URI = require('./db/uri');
 
-// Archivos de rutas
 
-// const user_routes = require("./routes/user");
+
+connectDB(MONGO_URI);
 
 // Middlewares
-
 app.use(cors());
-
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 require("./services/Auth/index");

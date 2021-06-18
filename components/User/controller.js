@@ -54,3 +54,8 @@ const getFavorites = async (id) => {
     }
 
 }
+
+module.exports = {
+    getUser, getUsers, createUser,
+    deleteUser, addFavorite, getFavorites
+}

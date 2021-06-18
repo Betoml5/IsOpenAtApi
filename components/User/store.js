@@ -1,23 +1,3 @@
-const mongoose = require('mongoose');
-const User = require('../models/User');
-const { config } = require("../config");
-
-const USER = encodeURIComponent(config.dbUser); //Esto es para los caracteres especiales.
-const PASSWORD = encodeURIComponent(config.dbPassword);
-const DB_NAME = config.dbName;
-const MONGO_URI = `mongodb+srv://${USER}:${PASSWORD}@isopenat.gkqm7.mongodb.net/${DB_NAME}?retryWrites=true&w=majority`;
-
-const client = mongoose;
-client.set("useNewUrlParser", true);
-client.set("useFindAndModify", false);
-client.set("useCreateIndex", true);
-client.set("useUnifiedTopology", true);
-client.connect(MONGO_URI).then((msg) => console.log('Conected to DATABASE!', msg)).catch(e => console.log('An Error has ocurred!', e))
-
-
-
-
-mongoose.connect(MONGO_URI, {})
 
 const getUser = async (id) => {
     const user = await User.findById(id);
