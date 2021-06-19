@@ -1,45 +1,45 @@
-const Shop = require("../models/Shop");
+// const Shop = require("../models/Shop");
 
-class RestaurantService extends Shop {
-  constructor() {
-    super();
-  }
+// class RestaurantService extends Shop {
+//   constructor() {
+//     super();
+//   }
 
-  async addFood(shopId, food) {
-    try {
-      const newFood = await Shop.findByIdAndUpdate(
-        shopId,
-        {
-          $push: { menu: food },
-        },
-        { new: true }
-      );
+//   async addFood(shopId, food) {
+//     try {
+//       const newFood = await Shop.findByIdAndUpdate(
+//         shopId,
+//         {
+//           $push: { menu: food },
+//         },
+//         { new: true }
+//       );
 
-      return newFood;
-    } catch (error) {
-      return error;
-    }
-  }
+//       return newFood;
+//     } catch (error) {
+//       return error;
+//     }
+//   }
 
-  async removeFood(shopId, foodIndex) {
-    try {
-      const shop = await Shop.findById(shopId);
-      shop.menu.splice(foodIndex, 1);
-      shop.save();
-      return shop;
-    } catch (error) {
-      return error;
-    }
-  }
+//   async removeFood(shopId, foodIndex) {
+//     try {
+//       const shop = await Shop.findById(shopId);
+//       shop.menu.splice(foodIndex, 1);
+//       shop.save();
+//       return shop;
+//     } catch (error) {
+//       return error;
+//     }
+//   }
 
-  async getMenu(shopId) {
-    try {
-      const shop = await Shop.findById(shopId);
-      return shop.menu;
-    } catch (error) {
-      return error;
-    }
-  }
-}
+//   async getMenu(shopId) {
+//     try {
+//       const shop = await Shop.findById(shopId);
+//       return shop.menu;
+//     } catch (error) {
+//       return error;
+//     }
+//   }
+// }
 
-module.exports = RestaurantService;
+// module.exports = RestaurantService;

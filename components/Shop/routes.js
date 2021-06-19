@@ -109,3 +109,5 @@ router.get("/famous", async (req, res, next) => {
     return response.error(req, res, error, 500);
   }
 });
+
+module.exports = router;
