@@ -1,3 +1,5 @@
+const User = require('./model');
+
 
 const getUser = async (id) => {
     const user = await User.findById(id);
@@ -42,6 +44,11 @@ const getFavorites = async (id) => {
 }
 
 module.exports = {
-    getUser, getUsers, createUser, deleteUser, addFavorite,
-    removeFavorite, getFavorites,
+    getAll: getUsers,
+    get: getUser,
+    create: createUser,
+    delete: deleteUser,
+    addFav: addFavorite,
+    removeFav: removeFavorite,
+    getFav: getFavorites,
 }

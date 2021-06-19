@@ -1,7 +1,4 @@
 const { Schema, model } = require("mongoose");
-const mongoose = require("mongoose");
-
-mongoose.Decimal128
 
 const ShopModelSchema = new Schema({
   name: { type: String },
