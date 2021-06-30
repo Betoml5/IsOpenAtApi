@@ -79,13 +79,11 @@ router.patch("/ishot/:shopId?", async (req, res, next) => {
   }
 });
 
-router.patch("/isopenow/:shopId?", async (req, res, next) => {
+router.get("/isopen/:shopId?", async (req, res, next) => {
   const { shopId } = req.params;
-  const { openNow } = req.body;
-
   try {
-    const shopUpdate = await controller.openNow(shopId, openNow);
-    return response.success(req, res, shopUpdate, 200);
+    const isOpen = await controller.getOpen(shopId);
+    return response.success(req, res, isOpen, 200);
   } catch (error) {
     return response.error(req, res, error, 500);
   }

@@ -110,16 +110,10 @@ const isHot = async (shopId, hot) => {
   }
 };
 
-const isOpenNow = async (shopId, openNow) => {
+const getOpenNow = async (shopId) => {
   try {
-    const shopUpdate = await Shop.findOneAndUpdate(
-      shopId,
-      {
-        openNow: openNow,
-      },
-      { new: true }
-    );
-    return shopUpdate;
+    const shop = await Shop.findById(shopId);
+    return shop.openNow;
   } catch (error) {
     return error;
   }
@@ -128,10 +122,8 @@ const isOpenNow = async (shopId, openNow) => {
 const setOpenNow = async (shopId) => {
   try {
     const shop = await Shop.findById(shopId);
-    console.log(shop);
     shop.openNow = !shop.openNow;
     shop.save();
-
     return shop;
   } catch (error) {
     return error;
@@ -178,8 +170,8 @@ module.exports = {
   update: updateShop,
   promo: isPromo,
   hot: isHot,
-  openNow: isOpenNow,
   avg: avgPrice,
   famous: mostFamous,
   setOpen: setOpenNow,
+  getOpen: getOpenNow,
 };

@@ -64,11 +64,10 @@ const isHot = async (shopId, hot) => {
   return shop;
 };
 
-const openNow = async (shopId, openNow) => {
-  if (!shopId || !openNow)
-    return Promise.reject("Invalid ShopId | openNow (Boolean)");
-  const shop = await store.openNow(shopId, openNow);
-  return shop;
+const getOpenNow = async (shopId) => {
+  if (!shopId) return Promise.reject("Invalid ShopId");
+  const isOpen = await store.getOpen(shopId);
+  return isOpen;
 };
 
 const setOpenNow = async (shopId) => {
@@ -96,8 +95,8 @@ module.exports = {
   update: updateShop,
   promo: isPromo,
   hot: isHot,
-  openNow,
   avg: getAvg,
   famous: famous,
   setOpen: setOpenNow,
+  getOpen: getOpenNow,
 };
