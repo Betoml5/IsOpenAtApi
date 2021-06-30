@@ -1,5 +1,5 @@
 const express = require("express");
-const router = express.router();
+const router = express.Router();
 const controller = require("./controller");
 const response = require("../../network/response");
 
@@ -36,3 +36,5 @@ router.get("/menu/:shopId", async (req, res, next) => {
     return response.error(req, res, error, 500);
   }
 });
+
+module.exports = router;

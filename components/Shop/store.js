@@ -125,6 +125,19 @@ const isOpenNow = async (shopId, openNow) => {
   }
 };
 
+const setOpenNow = async (shopId) => {
+  try {
+    const shop = await Shop.findById(shopId);
+    console.log(shop);
+    shop.openNow = !shop.openNow;
+    shop.save();
+
+    return shop;
+  } catch (error) {
+    return error;
+  }
+};
+
 const avgPrice = async (shopId) => {
   try {
     const { menu } = await Shop.findById(shopId, { new: true });
@@ -168,4 +181,5 @@ module.exports = {
   openNow: isOpenNow,
   avg: avgPrice,
   famous: mostFamous,
+  setOpen: setOpenNow,
 };

@@ -3,7 +3,7 @@ const cors = require("cors");
 const app = express();
 const userRoutes = require("./components/User/routes");
 const shopRoutes = require("./components/Shop/routes");
-// const restaurantRoutes = require("./routes/Restaurant");
+const restaurantRoutes = require("./components/restaurant/routes");
 const connectDB = require("./db");
 const getURI = require("./db/uri");
 const MONGO_URI = getURI();
@@ -18,6 +18,6 @@ require("./services/Auth/index");
 //Routes
 app.use("/api/users", userRoutes);
 app.use("/api/shops", shopRoutes);
-// app.use("/api/restaurants", restaurantRoutes); // Aqui va el archivo de rutas;
+app.use("/api/restaurants", restaurantRoutes); // Aqui va el archivo de rutas;
 
 module.exports = app;

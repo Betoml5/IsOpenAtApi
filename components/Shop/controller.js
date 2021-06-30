@@ -29,11 +29,13 @@ const createShop = async (
 };
 
 const deleteShop = async (id) => {
+  if (!id) return Promise.reject("Invalid Id");
   const shop = store.delete(id);
   return shop;
 };
 
 const getShop = async (id) => {
+  if (!id) return Promise.reject("Invalid Id");
   const shop = store.get(id);
   return shop;
 };
@@ -44,26 +46,39 @@ const getShops = async () => {
 };
 
 const updateShop = async (id, name, email, address) => {
+  if (!id || !name || !email || !address)
+    return Promise.reject("Invalid ID | Name | Email | Address");
   const shop = store.update(id, name, email, address);
   return shop;
 };
 
 const isPromo = async (shopId, promo) => {
+  if (!shopId || !promo) return Promise.reject("Invalid ShopId | Promo");
   const shop = await store.promo(shopId, promo);
   return shop;
 };
 
 const isHot = async (shopId, hot) => {
-  const shop = await store.hot(shopId, promo);
+  if (!shopId || !hot) return Promise.reject("Invalid ShopId | Hot (Boolean)");
+  const shop = await store.hot(shopId, hot);
   return shop;
 };
 
 const openNow = async (shopId, openNow) => {
-  const shop = await store.openNow();
+  if (!shopId || !openNow)
+    return Promise.reject("Invalid ShopId | openNow (Boolean)");
+  const shop = await store.openNow(shopId, openNow);
+  return shop;
+};
+
+const setOpenNow = async (shopId) => {
+  if (!shopId) return Promise.reject("Invalid ShopId");
+  const shop = await store.setOpen(shopId);
   return shop;
 };
 
 const getAvg = async (shopId) => {
+  if (!shopId) return Promise.reject("Invalid ShopId");
   const avg = await store.avg(shopId);
   return avg;
 };
@@ -84,4 +99,5 @@ module.exports = {
   openNow,
   avg: getAvg,
   famous: famous,
+  setOpen: setOpenNow,
 };

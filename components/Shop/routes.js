@@ -91,6 +91,16 @@ router.patch("/isopenow/:shopId?", async (req, res, next) => {
   }
 });
 
+router.patch("/setopen/:shopId?", async (req, res, next) => {
+  const { shopId } = req.params;
+  try {
+    const shop = await controller.setOpen(shopId);
+    return response.success(req, res, shop, 200);
+  } catch (error) {
+    return response.error(req, res, error, 500);
+  }
+});
+
 router.get("/avg/:shopId?", async (req, res, next) => {
   const { shopId } = req.params;
   try {
