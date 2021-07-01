@@ -110,6 +110,26 @@ const isHot = async (shopId, hot) => {
   }
 };
 
+const getHot = async (shopId) => {
+  try {
+    const shop = await Shop.findById(shopId);
+    return shop.hot;
+  } catch (error) {
+    return error;
+  }
+};
+
+const setHot = async (shopId) => {
+  try {
+    const shop = await Shop.findById(shopId);
+    shop.hot = !shop.hot;
+    shop.save();
+    return shop;
+  } catch (error) {
+    return error;
+  }
+};
+
 const getOpenNow = async (shopId) => {
   try {
     const shop = await Shop.findById(shopId);
@@ -169,9 +189,10 @@ module.exports = {
   getAll: getShops,
   update: updateShop,
   promo: isPromo,
-  hot: isHot,
   avg: avgPrice,
   famous: mostFamous,
   setOpen: setOpenNow,
   getOpen: getOpenNow,
+  setHot,
+  getHot,
 };

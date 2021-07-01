@@ -58,9 +58,15 @@ const isPromo = async (shopId, promo) => {
   return shop;
 };
 
-const isHot = async (shopId, hot) => {
-  if (!shopId || !hot) return Promise.reject("Invalid ShopId | Hot (Boolean)");
-  const shop = await store.hot(shopId, hot);
+const getHot = async (shopId) => {
+  if (!shopId) return Promise.reject("Invalid ShopId");
+  const isHot = await store.getHot(shopId);
+  return isHot;
+};
+
+const setHot = async (shopId) => {
+  if (!shopId) return Promise.reject("Invalid ShopId");
+  const shop = await store.setHot(shopId);
   return shop;
 };
 
@@ -94,9 +100,10 @@ module.exports = {
   getAll: getShops,
   update: updateShop,
   promo: isPromo,
-  hot: isHot,
   avg: getAvg,
   famous: famous,
   setOpen: setOpenNow,
   getOpen: getOpenNow,
+  setHot,
+  getHot,
 };

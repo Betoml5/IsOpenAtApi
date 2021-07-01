@@ -68,12 +68,21 @@ router.patch("/ispromo/:shopId?", async (req, res, next) => {
   }
 });
 
-router.patch("/ishot/:shopId?", async (req, res, next) => {
+router.get("/ishot/:shopId?", async (req, res, next) => {
   const { shopId } = req.params;
-  const { hot } = req.body;
   try {
-    const shopUpdate = await controller.hot(shopId, hot);
-    return response.success(req, res, shopUpdate, 200);
+    const isHot = await controller.getHot(shopId);
+    return response.success(req, res, isHot, 200);
+  } catch (error) {
+    return response.error(req, res, error, 500);
+  }
+});
+
+router.patch("/setHot/:shopId?", async (req, res, next) => {
+  const { shopId } = req.params;
+  try {
+    const shop = await controller.setHot(shopId);
+    return response.success(req, res, shop, 200);
   } catch (error) {
     return response.error(req, res, error, 500);
   }
