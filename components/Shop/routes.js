@@ -2,6 +2,7 @@ const express = require("express");
 const controller = require("./controller");
 const router = express.Router();
 const response = require("../../network/response");
+const store = require("./store");
 
 router.get("/all", async (req, res, next) => {
   try {
@@ -30,6 +31,7 @@ router.post("/create", async (req, res, next) => {
     const shop = await controller.create(name, email, address, phone);
     return response.success(req, res, shop, 201);
   } catch (error) {
+    console.log(error);
     return response.error(req, res, error, 500);
   }
 });
@@ -59,10 +61,20 @@ router.patch("/update/:id?", async (req, res, next) => {
 
 router.patch("/ispromo/:shopId?", async (req, res, next) => {
   const { shopId } = req.params;
-  const { promo } = req.body;
+
   try {
-    const shopUpdate = await controller.promo(shopId, promo);
-    return response.success(req, res, shopUpdate, 200);
+    const isPromo = await controller.getPromo(shopId);
+    return response.success(req, res, isPromo, 200);
+  } catch (error) {
+    return response.error(req, res, error, 500);
+  }
+});
+
+router.patch("/setpromo/:shopId?", async (req, res, next) => {
+  const { shopId } = req.params;
+  try {
+    const shop = await controller.setPromo(shopId);
+    return response.success(req, res, shop, 200);
   } catch (error) {
     return response.error(req, res, error, 500);
   }
@@ -122,6 +134,109 @@ router.get("/famous", async (req, res, next) => {
   try {
     const famous = await controller.famous();
     return response.success(req, res, famous, 200);
+  } catch (error) {
+    return response.error(req, res, error, 500);
+  }
+});
+
+router.patch("/code", async (req, res, next) => {
+  const { shopId } = req.params;
+
+  try {
+    const shop = await controller.setCode(shopId);
+    return response.success(req, res, shop, 200);
+  } catch (error) {
+    return response.error(req, res, error, 500);
+  }
+});
+
+router.get("/code", async (req, res, next) => {
+  try {
+    const { shopId } = req.params;
+    const code = await controller.getCode(shopId);
+    return response.success(req, res, code, 200);
+  } catch (error) {
+    return response.error(req, res, error, 500);
+  }
+});
+
+router.patch("/avgtime", async (req, res, next) => {
+  const { shopId } = req.params;
+  const { avgTime } = req.body;
+  try {
+    const shop = await controller.setAvgTime(shopId, avgTime);
+    return response.success(req, res, shop, 200);
+  } catch (error) {
+    return response.error(req, res, error, 500);
+  }
+});
+
+router.get("/avgtime", async (req, res, next) => {
+  const { shopId } = req.params;
+
+  try {
+    const avgTime = await controller.getAvgTime(shopId);
+    return response.success(req, res, avgTime, 200);
+  } catch (error) {
+    return response.error(req, res, error, 500);
+  }
+});
+
+router.patch("/rating", async (req, res, next) => {
+  const { rating } = req.body;
+  try {
+    const shop = await controller.setRating(shopId, rating);
+    response.success(req, res, shop, 200);
+  } catch (error) {
+    return response.error(req, res, error, 500);
+  }
+});
+
+router.get("/rating", async (req, res, next) => {
+  const { shopId } = req.params;
+  try {
+    const rating = await controller.getRating(shopId);
+    return response.success(req, res, rating, 200);
+  } catch (error) {
+    return response.error(req, res, error, 500);
+  }
+});
+
+router.patch("/shipping", async (req, res, next) => {
+  const { shopId } = req.params;
+  try {
+    const shop = await controller.setShipping(shopId);
+    return response.success(req, res, shop, 200);
+  } catch (error) {
+    return response.error(req, res, error, 500);
+  }
+});
+
+router.get("/shipping", async (req, res, next) => {
+  const { shopId } = req.params;
+  try {
+    const shipping = await controller.getShipping(shopId);
+    return response.success(req, res, shipping, 200);
+  } catch (error) {
+    return response.error(req, res, error, 500);
+  }
+});
+
+router.patch("/highlight", async (req, res, next) => {
+  const { shopId } = req.params;
+  try {
+    const shop = await controller.setHighLight(shopId);
+    return response.success(req, res, shop, 200);
+  } catch (error) {
+    return response.error(req, res, error, 500);
+  }
+});
+
+router.get("/highlight", async (req, res, next) => {
+  const { shopId } = req.params;
+  try {
+    const highLight = await controller.getHighLight(shopId);
+    return response.success(req, res, highLight, 200);
   } catch (error) {
     return response.error(req, res, error, 500);
   }

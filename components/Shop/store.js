@@ -8,10 +8,14 @@ const createShop = (
   openNow = false,
   hot = false,
   promo = false,
-  stars = 0,
   avgPrice = 0,
+  rating = 0,
+  freeShipping = false,
+  highLight = false,
+  avgTime = 0,
+  code,
   schedule = {
-    moday: "",
+    monday: "",
     tuesday: "",
     wednesday: "",
     thursday: "",
@@ -29,12 +33,17 @@ const createShop = (
     newShop.openNow = openNow;
     newShop.hot = hot;
     newShop.promo = promo;
-    newShop.stars = stars;
     newShop.avgPrice = avgPrice;
     newShop.schedule = schedule;
+    newShop.rating = rating;
+    newShop.freeShipping = freeShipping;
+    newShop.highLight = highLight;
+    newShop.avgTime = avgTime;
+    newShop.code = code;
     newShop.save({ new: true });
     return newShop;
   } catch (error) {
+    console.log(error);
     return error;
   }
 };
@@ -84,27 +93,19 @@ const updateShop = async (id, name, email, address) => {
   }
 };
 
-const isPromo = async (shopId, promo) => {
+const getPromo = async (shopId) => {
   try {
-    const shopUpdate = await Shop.findOneAndUpdate(
-      shopId,
-      { promo: promo },
-      { new: true }
-    );
-    return shopUpdate;
+    const shop = await Shop.findById(shopId);
+    return shop.promo;
   } catch (error) {
     return error;
   }
 };
 
-const isHot = async (shopId, hot) => {
+const setPromo = async (shopId) => {
   try {
-    const shopUpdate = await Shop.findOneAndUpdate(
-      shopId,
-      { hot: hot },
-      { new: true }
-    );
-    return shopUpdate;
+    const shop = await Shop.findById(shopId);
+    shop.promo = !shop.promo;
   } catch (error) {
     return error;
   }
@@ -182,17 +183,126 @@ const mostFamous = async () => {
   }
 };
 
+const setCode = async (shopId, code) => {
+  try {
+    const shop = await Shop.findById(shopId, { new: true });
+    shop.code = code;
+    shop.save();
+    return shop.code;
+  } catch (error) {
+    return error;
+  }
+};
+
+const getCode = async (shopId) => {
+  try {
+    const shop = await Shop.findById(shopId);
+    return shop.code;
+  } catch (error) {
+    return error;
+  }
+};
+
+const setAvgTime = async (shopId, avgTime) => {
+  try {
+    const shop = await Shop.findById(shopId, { new: true });
+    shop.avgTime = avgTime;
+    shop.save();
+    return shop.avgTime;
+  } catch (error) {
+    return error;
+  }
+};
+
+const getAvgTime = async (shopId) => {
+  try {
+    const shop = await Shop.findById(shopId);
+    return shop.avgTime;
+  } catch (error) {
+    return error;
+  }
+};
+
+const setRating = async (shopId, rating) => {
+  try {
+    const shop = await Shop.findById(shopId);
+    shop.rating = rating;
+    shop.save();
+    return shop.rating;
+  } catch (error) {
+    return error;
+  }
+};
+
+const getRating = async (shopId) => {
+  try {
+    const shop = await Shop.findById(shopId);
+    return shop.rating;
+  } catch (error) {
+    return error;
+  }
+};
+
+const setShipping = async (shopId) => {
+  try {
+    const shop = await Shop.findById(shopId);
+    shop.freeShipping = !shop.freeShipping;
+    return shop.freeShipping;
+  } catch (error) {
+    return error;
+  }
+};
+const getShipping = async (shopId) => {
+  try {
+    const shop = await Shop.findById(shopId);
+    return shop.freeShipping;
+  } catch (error) {
+    return error;
+  }
+};
+
+const setHighLight = async (shopId) => {
+  try {
+    const shop = await Shop.findById(shopId);
+    shop.highLight = !shop.highLight;
+    shop.save();
+    return shop.highLight;
+  } catch (error) {
+    return error;
+  }
+};
+
+const getHighLight = async (shopId) => {
+  try {
+    const shop = await Shop.findById(shopId);
+    return shop.highLight;
+  } catch (error) {
+    return error;
+  }
+};
+
 module.exports = {
   create: createShop,
   delete: deleteShop,
   get: getShop,
   getAll: getShops,
   update: updateShop,
-  promo: isPromo,
   avg: avgPrice,
   famous: mostFamous,
   setOpen: setOpenNow,
   getOpen: getOpenNow,
   setHot,
   getHot,
+  setPromo,
+  getPromo,
+  setCode,
+  getCode,
+  setAvg: setAvgTime,
+  getAvg: getAvgTime,
+  setRating,
+  getRating,
+  setShipping,
+  getShipping,
+  setHighLight,
+  getHighLight,
 };

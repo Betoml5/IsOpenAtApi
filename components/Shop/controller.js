@@ -4,27 +4,30 @@ const createShop = async (
   name,
   email,
   address,
-  phone,
   openNow,
-  hot,
-  promo,
-  stars,
   avgPrice,
+  rating,
+  code,
+  avgTime,
+  freeShipping,
+  highLight,
+  menu,
   schedule
 ) => {
   const shop = store.create(
     name,
     email,
     address,
-    phone,
     openNow,
-    hot,
-    promo,
-    stars,
     avgPrice,
+    rating,
+    code,
+    avgTime,
+    freeShipping,
+    highLight,
+    menu,
     schedule
   );
-
   return shop;
 };
 
@@ -52,9 +55,15 @@ const updateShop = async (id, name, email, address) => {
   return shop;
 };
 
-const isPromo = async (shopId, promo) => {
-  if (!shopId || !promo) return Promise.reject("Invalid ShopId | Promo");
-  const shop = await store.promo(shopId, promo);
+const getPromo = async (shopId) => {
+  if (!shopId) return Promise.reject("Invalid ShopId");
+  const isPromo = await store.getPromo(shopId);
+  return isPromo;
+};
+
+const setPromo = async (shopId) => {
+  if (!shopId) return Promise.reject("Invalid ShopId");
+  const shop = await store.setPromo(shopId);
   return shop;
 };
 
@@ -93,17 +102,78 @@ const famous = async () => {
   return shops;
 };
 
+const setCode = async (shopId) => {
+  const shop = await store.setCode(shopId);
+  return shop;
+};
+
+const getCode = async (shopId) => {
+  const code = await store.getCode(shopId);
+  return code;
+};
+
+const setAvgTime = async (shopId, avgTime) => {
+  const shop = await store.setAvg(shopId, avgTime);
+  return shop;
+};
+
+const getAvgTime = async (shopId) => {
+  const avgTime = await store.getAvg(shopId);
+  return avgTime;
+};
+
+const setRating = async (shopId, rating) => {
+  const shop = await store.setRating(shopId, rating);
+  return shop;
+};
+
+const getRating = async (shopId) => {
+  const rating = await store.getRating(shopId);
+  return rating;
+};
+
+const setShipping = async (shopId) => {
+  const shop = await store.setShipping(shopId);
+  return shop;
+};
+
+const getShipping = async (shopId) => {
+  const shipping = await store.getShipping(shopId);
+  return shipping;
+};
+
+const setHighLight = async (shopId) => {
+  const setHigh = await store.setHighLight(shopId);
+  return setHigh;
+};
+
+const getHighLight = async (shopId) => {
+  const highLight = await store.getHighLight(shopId);
+  return highLight;
+};
+
 module.exports = {
   create: createShop,
   delete: deleteShop,
   get: getShop,
   getAll: getShops,
   update: updateShop,
-  promo: isPromo,
   avg: getAvg,
   famous: famous,
   setOpen: setOpenNow,
   getOpen: getOpenNow,
   setHot,
   getHot,
+  setPromo,
+  getPromo,
+  setCode,
+  getCode,
+  setAvgTime,
+  getAvgTime,
+  setRating,
+  getRating,
+  setShipping,
+  getShipping,
+  setHighLight,
+  getHighLight,
 };
