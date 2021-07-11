@@ -102,8 +102,8 @@ const famous = async () => {
   return shops;
 };
 
-const setCode = async (shopId) => {
-  const shop = await store.setCode(shopId);
+const setCode = async (shopId, code) => {
+  const shop = await store.setCode(shopId, code);
   return shop;
 };
 

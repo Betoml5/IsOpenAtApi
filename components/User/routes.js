@@ -1,9 +1,10 @@
 const express = require("express");
 const router = express.Router();
 const controller = require("./controller");
-// const Boom = require('@hapi/boom');
+const { config } = require("../../config/index");
 const passport = require("passport");
 const response = require("../../network/response");
+const jwt = require("jsonwebtoken");
 
 router.post("/singup", async (req, res, next) => {
   const { username, email, password } = req.body;
@@ -15,7 +16,7 @@ router.post("/singup", async (req, res, next) => {
   }
 });
 
-router.post("/singin", async (req, res, next) => {
+router.post("/signin", async (req, res, next) => {
   passport.authenticate("login", async (err, user, info) => {
     try {
       // Verificamos si hubo algun error o no hay usuario.
@@ -84,7 +85,7 @@ router.patch("/favorites/add/:userId?/:shopId?", async (req, res, next) => {
   }
 });
 
-router.patch(
+router.delete(
   "/favorites/delete/:userId?/:shopIndex?",
   async (req, res, next) => {
     const { userId, shopIndex } = req.params;

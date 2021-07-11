@@ -120,7 +120,7 @@ router.patch("/setopen/:shopId?", async (req, res, next) => {
   }
 });
 
-router.get("/avg/:shopId?", async (req, res, next) => {
+router.get("/avgprice/:shopId?", async (req, res, next) => {
   const { shopId } = req.params;
   try {
     const menu = await controller.avg(shopId);
@@ -130,7 +130,7 @@ router.get("/avg/:shopId?", async (req, res, next) => {
   }
 });
 
-router.get("/famous", async (req, res, next) => {
+router.get("/famous/:shopId", async (req, res, next) => {
   try {
     const famous = await controller.famous();
     return response.success(req, res, famous, 200);
@@ -139,18 +139,19 @@ router.get("/famous", async (req, res, next) => {
   }
 });
 
-router.patch("/code", async (req, res, next) => {
+router.patch("/setcode/:shopId", async (req, res, next) => {
   const { shopId } = req.params;
+  const { code } = req.body;
 
   try {
-    const shop = await controller.setCode(shopId);
+    const shop = await controller.setCode(shopId, code);
     return response.success(req, res, shop, 200);
   } catch (error) {
     return response.error(req, res, error, 500);
   }
 });
 
-router.get("/code", async (req, res, next) => {
+router.get("/code/:shopId", async (req, res, next) => {
   try {
     const { shopId } = req.params;
     const code = await controller.getCode(shopId);
@@ -160,7 +161,7 @@ router.get("/code", async (req, res, next) => {
   }
 });
 
-router.patch("/avgtime", async (req, res, next) => {
+router.patch("/avgtime/:shopId", async (req, res, next) => {
   const { shopId } = req.params;
   const { avgTime } = req.body;
   try {
@@ -171,7 +172,7 @@ router.patch("/avgtime", async (req, res, next) => {
   }
 });
 
-router.get("/avgtime", async (req, res, next) => {
+router.get("/avgtime/:shopId", async (req, res, next) => {
   const { shopId } = req.params;
 
   try {
@@ -182,7 +183,8 @@ router.get("/avgtime", async (req, res, next) => {
   }
 });
 
-router.patch("/rating", async (req, res, next) => {
+router.patch("/rating/:shopId", async (req, res, next) => {
+  const { shopId } = req.params;
   const { rating } = req.body;
   try {
     const shop = await controller.setRating(shopId, rating);
@@ -192,7 +194,7 @@ router.patch("/rating", async (req, res, next) => {
   }
 });
 
-router.get("/rating", async (req, res, next) => {
+router.get("/rating/:shopId", async (req, res, next) => {
   const { shopId } = req.params;
   try {
     const rating = await controller.getRating(shopId);
@@ -202,7 +204,7 @@ router.get("/rating", async (req, res, next) => {
   }
 });
 
-router.patch("/shipping", async (req, res, next) => {
+router.patch("/shipping/:shopId", async (req, res, next) => {
   const { shopId } = req.params;
   try {
     const shop = await controller.setShipping(shopId);
@@ -212,7 +214,7 @@ router.patch("/shipping", async (req, res, next) => {
   }
 });
 
-router.get("/shipping", async (req, res, next) => {
+router.get("/shipping/:shopId", async (req, res, next) => {
   const { shopId } = req.params;
   try {
     const shipping = await controller.getShipping(shopId);
@@ -222,7 +224,7 @@ router.get("/shipping", async (req, res, next) => {
   }
 });
 
-router.patch("/highlight", async (req, res, next) => {
+router.patch("/highlight/:shopId", async (req, res, next) => {
   const { shopId } = req.params;
   try {
     const shop = await controller.setHighLight(shopId);
@@ -232,7 +234,7 @@ router.patch("/highlight", async (req, res, next) => {
   }
 });
 
-router.get("/highlight", async (req, res, next) => {
+router.get("/highlight/:shopId", async (req, res, next) => {
   const { shopId } = req.params;
   try {
     const highLight = await controller.getHighLight(shopId);
