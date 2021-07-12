@@ -34,7 +34,6 @@ const removeFavorite = (id, shopIndex) => {
   if (!id || !shopIndex) return Promise.reject("Invalid ID | ShopIndex");
   const user = store.removeFav(id, shopIndex);
   user.favorites.splice(shopIndex, 1);
-  user.save({ new: true });
   return user;
 };
 
@@ -42,6 +41,12 @@ const getFavorites = (id) => {
   if (!id) return Promise.reject("Invalid ID");
   const favorite = store.getFav(id);
   return favorite;
+};
+
+const setImage = (id, imageUrl) => {
+  if (!imageUrl) return Promise.reject("Need imageURL");
+  const user = store.setImage(id, imageUrl);
+  return user;
 };
 
 module.exports = {
@@ -52,4 +57,5 @@ module.exports = {
   addFavorite,
   getFavorites,
   removeFavorite,
+  setImage,
 };

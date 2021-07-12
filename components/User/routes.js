@@ -6,7 +6,7 @@ const passport = require("passport");
 const response = require("../../network/response");
 const jwt = require("jsonwebtoken");
 
-router.post("/singup", async (req, res, next) => {
+router.post("/create", async (req, res, next) => {
   const { username, email, password } = req.body;
   try {
     const user = await controller.createUser(username, email, password);
@@ -16,7 +16,7 @@ router.post("/singup", async (req, res, next) => {
   }
 });
 
-router.post("/signin", async (req, res, next) => {
+router.post("/login", async (req, res, next) => {
   passport.authenticate("login", async (err, user, info) => {
     try {
       // Verificamos si hubo algun error o no hay usuario.
@@ -106,6 +106,20 @@ router.get("/favorites/:userId?", async (req, res, next) => {
     const favorites = controller.getFavorites(userId);
     return response.success(req, res, favorites, 200);
   } catch (error) {
+    return response.error(req, res, error, 500);
+  }
+});
+
+router.patch("/image/:id", async (req, res, next) => {
+  const { imageurl } = req.body;
+  const { id } = req.params;
+  console.log(req.body);
+
+  try {
+    const userUpdated = await controller.setImage(id, imageurl);
+    return response.success(req, res, userUpdated, 200);
+  } catch (error) {
+    console.log(error.message);
     return response.error(req, res, error, 500);
   }
 });

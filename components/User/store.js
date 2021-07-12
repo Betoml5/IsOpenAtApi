@@ -24,6 +24,7 @@ const createUser = async (username, email, password) => {
     newUser.username = username;
     newUser.email = email;
     newUser.password = password;
+    newUser.image = "";
     newUser.save({ new: true });
     return newUser;
   } catch (error) {
@@ -63,9 +64,21 @@ const removeFavorite = async (id, shopIndex) => {
 
 const getFavorites = async (id) => {
   try {
-    const user = await User.find(id);
+    const user = await User.findById(id);
     return user.favorites;
   } catch (error) {
+    return error;
+  }
+};
+
+const setImage = async (id, imageUrl) => {
+  try {
+    const user = await User.findById(id);
+    user.image = imageUrl;
+    user.save();
+    return user;
+  } catch (error) {
+    console.log("Error", error);
     return error;
   }
 };
@@ -78,4 +91,5 @@ module.exports = {
   addFav: addFavorite,
   removeFav: removeFavorite,
   getFav: getFavorites,
+  setImage,
 };
