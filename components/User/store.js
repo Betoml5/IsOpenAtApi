@@ -52,9 +52,10 @@ const addFavorite = async (id, shop) => {
   }
 };
 
-const removeFavorite = async (id, shopIndex) => {
+const removeFavorite = async (id, shopId) => {
   try {
     const user = await User.findById(id);
+    const shopIndex = user.favorites.indexOf(shopId);
     user.favorites.splice(shopIndex, 1);
     user.save({ new: true });
   } catch (error) {

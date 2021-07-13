@@ -85,20 +85,17 @@ router.patch("/favorites/add/:userId?/:shopId?", async (req, res, next) => {
   }
 });
 
-router.delete(
-  "/favorites/delete/:userId?/:shopIndex?",
-  async (req, res, next) => {
-    const { userId, shopIndex } = req.params;
+router.delete("/favorites/delete/:userId?/:shopId?", async (req, res, next) => {
+  const { userId, shopId } = req.params;
 
-    try {
-      const removedShop = await controller.removeFavorite(userId, shopIndex);
+  try {
+    const removedShop = await controller.removeFavorite(userId, shopId);
 
-      return response.success(req, res, removedShop, 200);
-    } catch (error) {
-      return response.error(req, res, error, 500);
-    }
+    return response.success(req, res, removedShop, 200);
+  } catch (error) {
+    return response.error(req, res, error, 500);
   }
-);
+});
 
 router.get("/favorites/:userId?", async (req, res, next) => {
   const { userId } = req.params;

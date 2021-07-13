@@ -30,10 +30,9 @@ const addFavorite = (id, shop) => {
   return user;
 };
 
-const removeFavorite = (id, shopIndex) => {
-  if (!id || !shopIndex) return Promise.reject("Invalid ID | ShopIndex");
-  const user = store.removeFav(id, shopIndex);
-  user.favorites.splice(shopIndex, 1);
+const removeFavorite = (id, shopId) => {
+  if (!id || !shopId) return Promise.reject("Invalid ID | ShopId");
+  const user = store.removeFav(id, shopId);
   return user;
 };
 
