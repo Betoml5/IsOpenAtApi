@@ -11,6 +11,7 @@ connectDB(MONGO_URI);
 
 // Middlewares
 app.use(cors());
+app.options("*", cors());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 require("./services/Auth/index");
