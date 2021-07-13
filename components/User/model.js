@@ -8,6 +8,7 @@ const UserModelSchema = new Schema({
   email: { type: String, unique: true, lowercase: true },
   password: { type: String, required: true },
   favorites: [],
+  image: String,
 });
 
 //Aqui lo que hacemos es que antes de que se guarde el usuario, vamos a encriptar la constraseña

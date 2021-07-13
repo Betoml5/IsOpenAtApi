@@ -1,4 +1,3 @@
-const UserService = require("../User");
 const { config } = require("../../config");
 
 const bcrypt = require("bcrypt");
@@ -6,7 +5,7 @@ const passport = require("passport");
 const localStrategy = require("passport-local").Strategy;
 const JWTStrategy = require("passport-jwt").Strategy;
 const ExtractJWT = require("passport-jwt").ExtractJwt;
-const User = require("../../models/User");
+const User = require("../../components/User/model");
 
 passport.use(
   "login",
@@ -40,7 +39,11 @@ passport.use(
 // Con este middleware, vamos a verificar el token en cada peticion.
 // Tenemos que ponerlo en cada ruta, para valdiar
 passport.use(
-  new JWTStrategy({secretOrKey: config.authJwtSecret,jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),},
+  new JWTStrategy(
+    {
+      secretOrKey: config.authJwtSecret,
+      jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
+    },
     (token, done) => {
       try {
         if (!token) {
