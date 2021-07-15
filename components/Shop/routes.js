@@ -31,7 +31,6 @@ router.post("/create", async (req, res, next) => {
     const shop = await controller.create(name, email, address, phone);
     return response.success(req, res, shop, 201);
   } catch (error) {
-    console.log(error);
     return response.error(req, res, error, 500);
   }
 });
@@ -239,6 +238,24 @@ router.get("/highlight/:shopId", async (req, res, next) => {
   try {
     const highLight = await controller.getHighLight(shopId);
     return response.success(req, res, highLight, 200);
+  } catch (error) {
+    return response.error(req, res, error, 500);
+  }
+});
+
+router.patch("/review/:shopId", async (req, res) => {
+  const { shopId } = req.params;
+  const { email } = req.body;
+  const { name, text } = req.query;
+
+  try {
+    const review = {
+      name,
+      text,
+      email,
+    };
+    const shop = await controller.setReview(shopId, review);
+    return response.success(req, res, shop, 200);
   } catch (error) {
     return response.error(req, res, error, 500);
   }

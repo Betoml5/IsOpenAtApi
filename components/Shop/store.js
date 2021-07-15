@@ -13,7 +13,8 @@ const createShop = (
   freeShipping = false,
   highLight = false,
   avgTime = 0,
-  code,
+  code = "",
+  reviews = [],
   schedule = {
     monday: "",
     tuesday: "",
@@ -40,10 +41,11 @@ const createShop = (
     newShop.highLight = highLight;
     newShop.avgTime = avgTime;
     newShop.code = code;
+    newShop.reviews = reviews;
     newShop.save({ new: true });
     return newShop;
   } catch (error) {
-    console.log(error);
+    
     return error;
   }
 };
@@ -281,6 +283,21 @@ const getHighLight = async (shopId) => {
   }
 };
 
+const setReview = async (shopId, review) => {
+  try {
+    const newReview = await Shop.findByIdAndUpdate(
+      shopId,
+      {
+        $push: { reviews: review },
+      },
+      { new: true }
+    );
+    return newReview;
+  } catch (error) {
+    return error;
+  }
+};
+
 module.exports = {
   create: createShop,
   delete: deleteShop,
@@ -305,4 +322,5 @@ module.exports = {
   getShipping,
   setHighLight,
   getHighLight,
+  setReview,
 };

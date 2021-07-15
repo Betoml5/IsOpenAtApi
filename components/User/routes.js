@@ -59,7 +59,6 @@ router.get(
       if (!user) return res.status(404).send({ message: "User not found" });
       return response.success(req, res, user, 200);
     } catch (error) {
-      console.log(error);
       return response.error(req, res, error, 401);
     }
   }
@@ -110,13 +109,11 @@ router.get("/favorites/:userId?", async (req, res, next) => {
 router.patch("/image/:id", async (req, res, next) => {
   const { imageurl } = req.body;
   const { id } = req.params;
-  console.log(req.body);
 
   try {
     const userUpdated = await controller.setImage(id, imageurl);
     return response.success(req, res, userUpdated, 200);
   } catch (error) {
-    console.log(error.message);
     return response.error(req, res, error, 500);
   }
 });

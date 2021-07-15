@@ -12,6 +12,7 @@ const createShop = async (
   freeShipping,
   highLight,
   menu,
+  reviews,
   schedule
 ) => {
   const shop = store.create(
@@ -26,6 +27,7 @@ const createShop = async (
     freeShipping,
     highLight,
     menu,
+    reviews,
     schedule
   );
   return shop;
@@ -152,6 +154,11 @@ const getHighLight = async (shopId) => {
   return highLight;
 };
 
+const setReview = async (shopId, review) => {
+  const shop = await store.setReview(shopId, review);
+  return shop;
+};
+
 module.exports = {
   create: createShop,
   delete: deleteShop,
@@ -176,4 +183,5 @@ module.exports = {
   getShipping,
   setHighLight,
   getHighLight,
+  setReview,
 };

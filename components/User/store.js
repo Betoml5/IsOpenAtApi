@@ -79,7 +79,6 @@ const setImage = async (id, imageUrl) => {
     user.save();
     return user;
   } catch (error) {
-    console.log("Error", error);
     return error;
   }
 };
