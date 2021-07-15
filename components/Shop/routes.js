@@ -24,6 +24,18 @@ router.get("/shop/:id?", async (req, res, next) => {
   }
 });
 
+router.get("/name/", async (req, res) => {
+  const { name } = req.query;
+  try {
+    console.log(req.query.name);
+    const shops = await controller.getShopByName(name);
+    return response.success(req, res, shops, 200);
+  } catch (error) {
+    // console.log(error);
+    return response.error(req, res, error, 500);
+  }
+});
+
 router.post("/create", async (req, res, next) => {
   const { name, address, email, phone } = req.body;
 

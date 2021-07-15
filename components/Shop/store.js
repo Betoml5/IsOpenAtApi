@@ -45,7 +45,6 @@ const createShop = (
     newShop.save({ new: true });
     return newShop;
   } catch (error) {
-    
     return error;
   }
 };
@@ -72,6 +71,18 @@ const getShops = async () => {
   try {
     const shops = await Shop.find({});
     return shops;
+  } catch (error) {
+    return error;
+  }
+};
+
+const getShopByName = async (name) => {
+  try {
+    const shops = await Shop.find({}).exec();
+    const filteredShops = shops.filter((shop) =>
+      shop.name.toLowerCase().includes(name.toLowerCase())
+    );
+    return filteredShops;
   } catch (error) {
     return error;
   }
@@ -323,4 +334,5 @@ module.exports = {
   setHighLight,
   getHighLight,
   setReview,
+  getShopByName,
 };

@@ -50,6 +50,12 @@ const getShops = async () => {
   return shops;
 };
 
+const getShopByName = async (name) => {
+  if (!name) return Promise.reject("Need name");
+  const shops = store.getShopByName(name);
+  return shops;
+};
+
 const updateShop = async (id, name, email, address) => {
   if (!id || !name || !email || !address)
     return Promise.reject("Invalid ID | Name | Email | Address");
@@ -184,4 +190,5 @@ module.exports = {
   setHighLight,
   getHighLight,
   setReview,
+  getShopByName,
 };
