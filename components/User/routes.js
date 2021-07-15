@@ -55,12 +55,12 @@ router.get(
   async (req, res, next) => {
     const { id } = req.params;
     try {
-      const user = await UserServiceLib.getUserById(id);
+      const user = await controller.getUser(id);
       if (!user) return res.status(404).send({ message: "User not found" });
-
-      return res.status(200).send({ user });
+      return response.success(req, res, user, 200);
     } catch (error) {
-      return response.error(req, res, "Token needed", 401);
+      console.log(error);
+      return response.error(req, res, error, 401);
     }
   }
 );
