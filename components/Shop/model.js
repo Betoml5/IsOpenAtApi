@@ -17,6 +17,13 @@ const ShopModelSchema = new Schema({
   hot: Boolean,
   promo: Boolean,
   phone: String,
+  reviews: [
+    {
+      name: String,
+      text: String,
+      email: String,
+    },
+  ],
 });
 
 module.exports = model("Shop", ShopModelSchema);
