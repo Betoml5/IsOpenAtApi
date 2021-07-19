@@ -89,6 +89,18 @@ router.patch("/setHot/:shopId?", async (req, res, next) => {
   }
 });
 
+router.patch("/avgprice/:shopId?", async (req, res) => {
+  const { shopId } = req.params;
+  const { avgPrice } = req.body;
+  try {
+    const shop = await controller.setAvgPrice(shopId, avgPrice);
+    console.log(shop);
+    return response.success(req, res, shop, 200);
+  } catch (error) {
+    return response.error(req, res, error, 500);
+  }
+});
+
 router.patch("/setopen/:shopId?", async (req, res, next) => {
   const { shopId } = req.params;
   try {

@@ -146,19 +146,21 @@ const setHot = async (shopId) => {
   }
 };
 
-const getOpenNow = async (shopId) => {
+const setOpenNow = async (shopId) => {
   try {
     const shop = await Shop.findById(shopId);
-    return shop.openNow;
+    shop.openNow = !shop.openNow;
+    shop.save();
+    return shop;
   } catch (error) {
     return error;
   }
 };
 
-const setOpenNow = async (shopId) => {
+const setAvgPrice = async (shopId, avgPrice) => {
   try {
     const shop = await Shop.findById(shopId);
-    shop.openNow = !shop.openNow;
+    shop.avgPrice = shop.avgPrice + avgPrice;
     shop.save();
     return shop;
   } catch (error) {
@@ -171,8 +173,8 @@ const avgPrice = async (shopId) => {
     const { menu } = await Shop.findById(shopId, { new: true });
     let allPricesSum = 0;
     //Sum every price in the menu
-    menu.forEach((comida) => {
-      allPricesSum += comida.price;
+    menu.forEach((food) => {
+      allPricesSum += food.price;
     });
     // Divide them in the menu length
     const avgPrice = Math.floor(allPricesSum / menu.length);
@@ -189,10 +191,10 @@ const mostFamous = async () => {
     shops.forEach((element) => {
       starsAndName.push({
         name: element.name,
-        stars: element.stars,
+        rating: element.rating,
       });
     });
-    return starsAndName;
+    return ratingAndName;
   } catch (error) {
     return error;
   }
@@ -212,7 +214,7 @@ const setCode = async (shopId, code) => {
 const setAvgTime = async (shopId, avgTime) => {
   try {
     const shop = await Shop.findById(shopId, { new: true });
-    shop.avgTime = avgTime;
+    shop.avgTime += avgTime;
     shop.save();
     return shop.avgTime;
   } catch (error) {
@@ -223,9 +225,10 @@ const setAvgTime = async (shopId, avgTime) => {
 const setRating = async (shopId, rating) => {
   try {
     const shop = await Shop.findById(shopId);
-    shop.rating = rating;
+    // const shopRating = shop.rating;
+    shop.rating = shop.rating + rating;
     shop.save();
-    return shop.rating;
+    return shop;
   } catch (error) {
     return error;
   }
@@ -287,4 +290,5 @@ module.exports = {
   getShopByName,
   getMostExpensiveShops,
   getCheaperShops,
+  setAvgPrice,
 };

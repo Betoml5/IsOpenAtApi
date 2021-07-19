@@ -73,6 +73,12 @@ const updateShop = async (id, name, email, address) => {
   return shop;
 };
 
+const setAvgPrice = async (shopId, avgPrice) => {
+  if (!shopId || !avgPrice) return Promise.reject("Need ShopId | avgPrice");
+  const shop = await store.setAvgPrice(shopId, avgPrice);
+  return shop;
+};
+
 const setPromo = async (shopId) => {
   if (!shopId) return Promise.reject("Invalid ShopId");
   const shop = await store.setPromo(shopId);
@@ -132,7 +138,6 @@ module.exports = {
   get: getShop,
   getAll: getShops,
   update: updateShop,
-  avg: getAvg,
   famous: famous,
   setOpen: setOpenNow,
   setHot,
@@ -146,4 +151,5 @@ module.exports = {
   getShopByName,
   getMostExpensiveShops,
   getCheaperShops,
+  setAvgPrice,
 };

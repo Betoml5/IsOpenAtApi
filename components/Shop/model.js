@@ -12,7 +12,6 @@ const ShopModelSchema = new Schema({
   highLight: Boolean,
   rating: Number,
   openNow: Boolean,
-  stars: Number,
   schedule: Object,
   hot: Boolean,
   promo: Boolean,
