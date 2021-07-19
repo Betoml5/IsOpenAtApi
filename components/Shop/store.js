@@ -126,28 +126,10 @@ const updateShop = async (id, name, email, address) => {
   }
 };
 
-const getPromo = async (shopId) => {
-  try {
-    const shop = await Shop.findById(shopId);
-    return shop.promo;
-  } catch (error) {
-    return error;
-  }
-};
-
 const setPromo = async (shopId) => {
   try {
     const shop = await Shop.findById(shopId);
     shop.promo = !shop.promo;
-  } catch (error) {
-    return error;
-  }
-};
-
-const getHot = async (shopId) => {
-  try {
-    const shop = await Shop.findById(shopId);
-    return shop.hot;
   } catch (error) {
     return error;
   }
@@ -227,29 +209,11 @@ const setCode = async (shopId, code) => {
   }
 };
 
-const getCode = async (shopId) => {
-  try {
-    const shop = await Shop.findById(shopId);
-    return shop.code;
-  } catch (error) {
-    return error;
-  }
-};
-
 const setAvgTime = async (shopId, avgTime) => {
   try {
     const shop = await Shop.findById(shopId, { new: true });
     shop.avgTime = avgTime;
     shop.save();
-    return shop.avgTime;
-  } catch (error) {
-    return error;
-  }
-};
-
-const getAvgTime = async (shopId) => {
-  try {
-    const shop = await Shop.findById(shopId);
     return shop.avgTime;
   } catch (error) {
     return error;
@@ -267,27 +231,10 @@ const setRating = async (shopId, rating) => {
   }
 };
 
-const getRating = async (shopId) => {
-  try {
-    const shop = await Shop.findById(shopId);
-    return shop.rating;
-  } catch (error) {
-    return error;
-  }
-};
-
 const setShipping = async (shopId) => {
   try {
     const shop = await Shop.findById(shopId);
     shop.freeShipping = !shop.freeShipping;
-    return shop.freeShipping;
-  } catch (error) {
-    return error;
-  }
-};
-const getShipping = async (shopId) => {
-  try {
-    const shop = await Shop.findById(shopId);
     return shop.freeShipping;
   } catch (error) {
     return error;
@@ -299,15 +246,6 @@ const setHighLight = async (shopId) => {
     const shop = await Shop.findById(shopId);
     shop.highLight = !shop.highLight;
     shop.save();
-    return shop.highLight;
-  } catch (error) {
-    return error;
-  }
-};
-
-const getHighLight = async (shopId) => {
-  try {
-    const shop = await Shop.findById(shopId);
     return shop.highLight;
   } catch (error) {
     return error;
@@ -338,21 +276,13 @@ module.exports = {
   avg: avgPrice,
   famous: mostFamous,
   setOpen: setOpenNow,
-  getOpen: getOpenNow,
   setHot,
-  getHot,
   setPromo,
-  getPromo,
   setCode,
-  getCode,
   setAvg: setAvgTime,
-  getAvg: getAvgTime,
   setRating,
-  getRating,
   setShipping,
-  getShipping,
   setHighLight,
-  getHighLight,
   setReview,
   getShopByName,
   getMostExpensiveShops,
