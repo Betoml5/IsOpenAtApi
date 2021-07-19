@@ -126,28 +126,10 @@ const updateShop = async (id, name, email, address) => {
   }
 };
 
-const getPromo = async (shopId) => {
-  try {
-    const shop = await Shop.findById(shopId);
-    return shop.promo;
-  } catch (error) {
-    return error;
-  }
-};
-
 const setPromo = async (shopId) => {
   try {
     const shop = await Shop.findById(shopId);
     shop.promo = !shop.promo;
-  } catch (error) {
-    return error;
-  }
-};
-
-const getHot = async (shopId) => {
-  try {
-    const shop = await Shop.findById(shopId);
-    return shop.hot;
   } catch (error) {
     return error;
   }
@@ -164,19 +146,21 @@ const setHot = async (shopId) => {
   }
 };
 
-const getOpenNow = async (shopId) => {
+const setOpenNow = async (shopId) => {
   try {
     const shop = await Shop.findById(shopId);
-    return shop.openNow;
+    shop.openNow = !shop.openNow;
+    shop.save();
+    return shop;
   } catch (error) {
     return error;
   }
 };
 
-const setOpenNow = async (shopId) => {
+const setAvgPrice = async (shopId, avgPrice) => {
   try {
     const shop = await Shop.findById(shopId);
-    shop.openNow = !shop.openNow;
+    shop.avgPrice = shop.avgPrice + avgPrice;
     shop.save();
     return shop;
   } catch (error) {
@@ -189,8 +173,8 @@ const avgPrice = async (shopId) => {
     const { menu } = await Shop.findById(shopId, { new: true });
     let allPricesSum = 0;
     //Sum every price in the menu
-    menu.forEach((comida) => {
-      allPricesSum += comida.price;
+    menu.forEach((food) => {
+      allPricesSum += food.price;
     });
     // Divide them in the menu length
     const avgPrice = Math.floor(allPricesSum / menu.length);
@@ -207,10 +191,10 @@ const mostFamous = async () => {
     shops.forEach((element) => {
       starsAndName.push({
         name: element.name,
-        stars: element.stars,
+        rating: element.rating,
       });
     });
-    return starsAndName;
+    return ratingAndName;
   } catch (error) {
     return error;
   }
@@ -227,29 +211,11 @@ const setCode = async (shopId, code) => {
   }
 };
 
-const getCode = async (shopId) => {
-  try {
-    const shop = await Shop.findById(shopId);
-    return shop.code;
-  } catch (error) {
-    return error;
-  }
-};
-
 const setAvgTime = async (shopId, avgTime) => {
   try {
     const shop = await Shop.findById(shopId, { new: true });
-    shop.avgTime = avgTime;
+    shop.avgTime += avgTime;
     shop.save();
-    return shop.avgTime;
-  } catch (error) {
-    return error;
-  }
-};
-
-const getAvgTime = async (shopId) => {
-  try {
-    const shop = await Shop.findById(shopId);
     return shop.avgTime;
   } catch (error) {
     return error;
@@ -259,18 +225,10 @@ const getAvgTime = async (shopId) => {
 const setRating = async (shopId, rating) => {
   try {
     const shop = await Shop.findById(shopId);
-    shop.rating = rating;
+    // const shopRating = shop.rating;
+    shop.rating = shop.rating + rating;
     shop.save();
-    return shop.rating;
-  } catch (error) {
-    return error;
-  }
-};
-
-const getRating = async (shopId) => {
-  try {
-    const shop = await Shop.findById(shopId);
-    return shop.rating;
+    return shop;
   } catch (error) {
     return error;
   }
@@ -285,29 +243,12 @@ const setShipping = async (shopId) => {
     return error;
   }
 };
-const getShipping = async (shopId) => {
-  try {
-    const shop = await Shop.findById(shopId);
-    return shop.freeShipping;
-  } catch (error) {
-    return error;
-  }
-};
 
 const setHighLight = async (shopId) => {
   try {
     const shop = await Shop.findById(shopId);
     shop.highLight = !shop.highLight;
     shop.save();
-    return shop.highLight;
-  } catch (error) {
-    return error;
-  }
-};
-
-const getHighLight = async (shopId) => {
-  try {
-    const shop = await Shop.findById(shopId);
     return shop.highLight;
   } catch (error) {
     return error;
@@ -338,23 +279,16 @@ module.exports = {
   avg: avgPrice,
   famous: mostFamous,
   setOpen: setOpenNow,
-  getOpen: getOpenNow,
   setHot,
-  getHot,
   setPromo,
-  getPromo,
   setCode,
-  getCode,
   setAvg: setAvgTime,
-  getAvg: getAvgTime,
   setRating,
-  getRating,
   setShipping,
-  getShipping,
   setHighLight,
-  getHighLight,
   setReview,
   getShopByName,
   getMostExpensiveShops,
   getCheaperShops,
+  setAvgPrice,
 };
