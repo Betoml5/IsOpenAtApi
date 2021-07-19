@@ -2,7 +2,6 @@ const express = require("express");
 const controller = require("./controller");
 const router = express.Router();
 const response = require("../../network/response");
-const store = require("./store");
 
 router.get("/all", async (req, res, next) => {
   try {
