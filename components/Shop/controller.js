@@ -56,6 +56,16 @@ const getShopByName = async (name) => {
   return shops;
 };
 
+const getMostExpensiveShops = async () => {
+  const shops = await store.getMostExpensiveShops();
+  return shops;
+};
+
+const getCheaperShops = async () => {
+  const shops = await store.getCheaperShops();
+  return shops;
+};
+
 const updateShop = async (id, name, email, address) => {
   if (!id || !name || !email || !address)
     return Promise.reject("Invalid ID | Name | Email | Address");
@@ -191,4 +201,6 @@ module.exports = {
   getHighLight,
   setReview,
   getShopByName,
+  getMostExpensiveShops,
+  getCheaperShops,
 };

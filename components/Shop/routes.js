@@ -273,4 +273,22 @@ router.patch("/review/:shopId", async (req, res) => {
   }
 });
 
+router.get("/expensive", async (req, res) => {
+  try {
+    const shops = await controller.getMostExpensiveShops();
+    return response.success(req, res, shops, 200);
+  } catch (error) {
+    return response.error(req, res, error, 500);
+  }
+});
+
+router.get("/cheap", async (req, res) => {
+  try {
+    const shops = await controller.getCheaperShops();
+    return response.success(req, res, shops, 200);
+  } catch (error) {
+    return response.error(req, res, error, 500);
+  }
+});
+
 module.exports = router;

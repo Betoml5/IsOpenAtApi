@@ -88,6 +88,26 @@ const getShopByName = async (name) => {
   }
 };
 
+const getMostExpensiveShops = async () => {
+  try {
+    const shops = await Shop.find({}).exec();
+    const filteredShops = shops.filter((shop) => shop.avgPrice > 90);
+    return filteredShops;
+  } catch (error) {
+    return error;
+  }
+};
+
+const getCheaperShops = async () => {
+  try {
+    const shops = await Shop.find({}).exec();
+    const filteredShops = shops.filter((shop) => shop.avgPrice < 80);
+    return filteredShops;
+  } catch (error) {
+    return error;
+  }
+};
+
 const updateShop = async (id, name, email, address) => {
   try {
     const shopId = Shop.findByIdAndUpdate(
@@ -335,4 +355,6 @@ module.exports = {
   getHighLight,
   setReview,
   getShopByName,
+  getMostExpensiveShops,
+  getCheaperShops,
 };
