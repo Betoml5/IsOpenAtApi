@@ -276,11 +276,12 @@ const setReview = async (shopId, review) => {
 
 const setImageCover = async (shopId, imageURL) => {
   try {
-    const shop = await Shop.find(shopId);
+    const shop = await Shop.findById(shopId);
     shop.imageCover = imageURL;
     shop.save();
     return shop;
   } catch (error) {
+    
     return error;
   }
 };
