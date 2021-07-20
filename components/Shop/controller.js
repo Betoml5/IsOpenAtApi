@@ -13,7 +13,9 @@ const createShop = async (
   highLight,
   menu,
   reviews,
-  schedule
+  schedule,
+  imageCover,
+  imagesMenu
 ) => {
   const shop = store.create(
     name,
@@ -28,7 +30,9 @@ const createShop = async (
     highLight,
     menu,
     reviews,
-    schedule
+    schedule,
+    imageCover,
+    imagesMenu
   );
   return shop;
 };
@@ -132,6 +136,16 @@ const setReview = async (shopId, review) => {
   return shop;
 };
 
+const setImageCover = async (shopId, imageURL) => {
+  const shop = await store.setImageCover(shopId, imageURL);
+  return shop;
+};
+
+const pushImageMenu = async (shopId, imageURL) => {
+  const shop = await store.pushImageMenu(shopId, imageURL);
+  return shop;
+};
+
 module.exports = {
   create: createShop,
   delete: deleteShop,
@@ -152,4 +166,6 @@ module.exports = {
   getMostExpensiveShops,
   getCheaperShops,
   setAvgPrice,
+  pushImageMenu,
+  setImageCover,
 };

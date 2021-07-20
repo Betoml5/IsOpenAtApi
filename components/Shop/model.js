@@ -23,6 +23,8 @@ const ShopModelSchema = new Schema({
       email: String,
     },
   ],
+  imageCover: String,
+  imagesMenu: [],
 });
 
 module.exports = model("Shop", ShopModelSchema);

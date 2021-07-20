@@ -15,6 +15,8 @@ const createShop = (
   avgTime = 0,
   code = "",
   reviews = [],
+  imageCover = "",
+  imagesMenu = [],
   schedule = {
     monday: "",
     tuesday: "",
@@ -42,6 +44,8 @@ const createShop = (
     newShop.avgTime = avgTime;
     newShop.code = code;
     newShop.reviews = reviews;
+    newShop.imageCover = imageCover;
+    newShop.imagesMenu = imagesMenu;
     newShop.save({ new: true });
     return newShop;
   } catch (error) {
@@ -270,6 +274,32 @@ const setReview = async (shopId, review) => {
   }
 };
 
+const setImageCover = async (shopId, imageURL) => {
+  try {
+    const shop = await Shop.find(shopId);
+    shop.imageCover = imageURL;
+    shop.save();
+    return shop;
+  } catch (error) {
+    return error;
+  }
+};
+
+const pushImageMenu = async (shopId, imageURL) => {
+  try {
+    const shop = await Shop.findByIdAndUpdate(
+      shopId,
+      {
+        $push: { imagesMenu: imageURL },
+      },
+      { new: true }
+    );
+    return shop;
+  } catch (error) {
+    return error;
+  }
+};
+
 module.exports = {
   create: createShop,
   delete: deleteShop,
@@ -291,4 +321,6 @@ module.exports = {
   getMostExpensiveShops,
   getCheaperShops,
   setAvgPrice,
+  setImageCover,
+  pushImageMenu,
 };
