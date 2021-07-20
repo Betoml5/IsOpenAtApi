@@ -41,18 +41,18 @@ const deleteShop = async (id) => {
 
 const getShop = async (id) => {
   if (!id) return Promise.reject("Invalid Id");
-  const shop = store.get(id);
+  const shop = await store.get(id);
   return shop;
 };
 
 const getShops = async () => {
-  const shops = store.getAll();
+  const shops = await store.getAll();
   return shops;
 };
 
 const getShopByName = async (name) => {
   if (!name) return Promise.reject("Need name");
-  const shops = store.getShopByName(name);
+  const shops = await store.getShopByName(name);
   return shops;
 };
 

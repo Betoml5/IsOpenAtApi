@@ -60,7 +60,7 @@ const deleteShop = async (id) => {
 
 const getShop = async (id) => {
   try {
-    const shop = await Shop.findById(id).exec();
+    const shop = await Shop.findById(id);
     return shop;
   } catch (error) {
     return error;
