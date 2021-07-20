@@ -25,6 +25,7 @@ const createUser = async (username, email, password) => {
     newUser.email = email;
     newUser.password = password;
     newUser.image = "";
+    newUser.admin = false;
     newUser.save({ new: true });
     return newUser;
   } catch (error) {
