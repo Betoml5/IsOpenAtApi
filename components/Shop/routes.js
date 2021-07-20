@@ -210,4 +210,27 @@ router.get("/cheap", async (req, res) => {
   }
 });
 
+router.patch("/image-cover/:shopId", async (req, res) => {
+  const { shopId } = req.params;
+  const { imageURL } = req.body;
+
+  try {
+    const shop = await controller.setImageCover(shopId, imageURL);
+    return response.success(req, res, shop, 200);
+  } catch (error) {
+    return response.error(req, res, error, 500);
+  }
+});
+
+router.patch("/image-menu/:shopId", async (req, res) => {
+  const { shopId } = req.params;
+  const { imageURL } = req.body;
+  try {
+    const shop = await controller.pushImageMenu(shopId, imageURL);
+    return shop;
+  } catch (error) {
+    return response.error(req, res, error, 500);
+  }
+});
+
 module.exports = router;
