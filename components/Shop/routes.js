@@ -59,10 +59,9 @@ router.delete("/remove/:id?", async (req, res, next) => {
 // TODO -> Ver si realmente necesitamos esta ruta
 router.patch("/update/:id?", async (req, res, next) => {
   const { id } = req.params;
-  const { name, email, address } = req.body;
-
+  const update = req.body;
   try {
-    const shopId = await controller.update(id, name, email, address);
+    const shopId = await controller.update(id, update);
     return response.success(req, res, shopId, 200);
   } catch (error) {
     return response.error(req, res, error, 500);

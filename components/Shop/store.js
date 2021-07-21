@@ -112,19 +112,12 @@ const getCheaperShops = async () => {
   }
 };
 
-const updateShop = async (id, name, email, address) => {
+// Insted of using specific params, we pass a hole object of update
+// En lugar de pasar parametros especificos, paramos un objeto entero como actualizacion.
+const updateShop = async (id, update) => {
   try {
-    const shopId = Shop.findByIdAndUpdate(
-      id,
-      {
-        name,
-        email,
-        address,
-      },
-      { new: true }
-    ).exec();
-
-    return shopId;
+    const shop = Shop.findByIdAndUpdate(id, update, { new: true }).exec();
+    return shop;
   } catch (error) {
     return error;
   }
@@ -281,7 +274,6 @@ const setImageCover = async (shopId, imageURL) => {
     shop.save();
     return shop;
   } catch (error) {
-    
     return error;
   }
 };

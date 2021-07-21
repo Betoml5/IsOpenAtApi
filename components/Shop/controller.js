@@ -70,10 +70,9 @@ const getCheaperShops = async () => {
   return shops;
 };
 
-const updateShop = async (id, name, email, address) => {
-  if (!id || !name || !email || !address)
-    return Promise.reject("Invalid ID | Name | Email | Address");
-  const shop = store.update(id, name, email, address);
+const updateShop = async (id, update) => {
+  if (!id) return Promise.reject("Invalid ID | Name | Email | Address");
+  const shop = store.update(id, update);
   return shop;
 };
 
