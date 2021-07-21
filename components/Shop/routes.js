@@ -226,7 +226,7 @@ router.patch("/image-menu/:shopId", async (req, res) => {
   const { imageURL } = req.body;
   try {
     const shop = await controller.pushImageMenu(shopId, imageURL);
-    return shop;
+    return response.success(req, res, shop, 200);
   } catch (error) {
     return response.error(req, res, error, 500);
   }
