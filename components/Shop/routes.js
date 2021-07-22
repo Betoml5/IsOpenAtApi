@@ -57,7 +57,7 @@ router.delete("/remove/:id?", async (req, res, next) => {
 });
 
 // TODO -> Ver si realmente necesitamos esta ruta
-router.patch("/update/:id?", async (req, res, next) => {
+router.put("/update/:id?", async (req, res, next) => {
   const { id } = req.params;
   const update = req.body;
   try {

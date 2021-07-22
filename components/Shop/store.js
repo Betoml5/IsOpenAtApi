@@ -116,7 +116,7 @@ const getCheaperShops = async () => {
 // En lugar de pasar parametros especificos, paramos un objeto entero como actualizacion.
 const updateShop = async (id, update) => {
   try {
-    const shop = Shop.findByIdAndUpdate(id, update, { new: true }).exec();
+    const shop = await Shop.findByIdAndUpdate(id, update, { new: true });
     return shop;
   } catch (error) {
     return error;
