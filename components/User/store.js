@@ -2,7 +2,8 @@ const User = require("./model");
 
 const getUser = async (id) => {
   try {
-    const user = await User.findById(id);
+    //With -password with avoid getting the password
+    const user = await User.findById(id).select('-password')
     return user;
   } catch (error) {
     return error;
