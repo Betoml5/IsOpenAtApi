@@ -38,8 +38,8 @@ const removeFavorite = (id, shopId) => {
 
 const getFavorites = (id) => {
   if (!id) return Promise.reject("Invalid ID");
-  const favorite = store.getFav(id);
-  return favorite;
+  const favorites = store.getFavorites(id)
+  return favorites;
 };
 
 const setImage = (id, imageUrl) => {
