@@ -66,9 +66,10 @@ const removeFavorite = async (id, shopId) => {
 
 const getFavorites = async (id) => {
   try {
-    const user = await User.findById(id);
-    return user.favorites;
+    const favorites = await User.find({ _id: id }).populate('favorites');
+    return favorites;
   } catch (error) {
+    console.log(error)
     return error;
   }
 };
@@ -91,6 +92,6 @@ module.exports = {
   delete: deleteUser,
   addFav: addFavorite,
   removeFav: removeFavorite,
-  getFav: getFavorites,
+  getFavorites,
   setImage,
 };

@@ -86,10 +86,8 @@ router.patch("/favorites/add/:userId?/:shopId?", async (req, res, next) => {
 
 router.delete("/favorites/delete/:userId?/:shopId?", async (req, res, next) => {
   const { userId, shopId } = req.params;
-
   try {
     const removedShop = await controller.removeFavorite(userId, shopId);
-
     return response.success(req, res, removedShop, 200);
   } catch (error) {
     return response.error(req, res, error, 500);
@@ -99,7 +97,7 @@ router.delete("/favorites/delete/:userId?/:shopId?", async (req, res, next) => {
 router.get("/favorites/:userId?", async (req, res, next) => {
   const { userId } = req.params;
   try {
-    const favorites = controller.getFavorites(userId);
+    const favorites = await controller.getFavorites(userId);
     return response.success(req, res, favorites, 200);
   } catch (error) {
     return response.error(req, res, error, 500);
