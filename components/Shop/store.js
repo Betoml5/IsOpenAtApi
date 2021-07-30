@@ -127,6 +127,7 @@ const setPromo = async (shopId) => {
   try {
     const shop = await Shop.findById(shopId);
     shop.promo = !shop.promo;
+    shop.save();
   } catch (error) {
     return error;
   }
@@ -235,6 +236,7 @@ const setShipping = async (shopId) => {
   try {
     const shop = await Shop.findById(shopId);
     shop.freeShipping = !shop.freeShipping;
+    shop.save();
     return shop.freeShipping;
   } catch (error) {
     return error;
