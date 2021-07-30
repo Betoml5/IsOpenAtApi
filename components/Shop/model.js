@@ -25,6 +25,8 @@ const ShopModelSchema = new Schema({
   ],
   imageCover: String,
   imagesMenu: [],
+  location: []
+
 });
 
 module.exports = model("Shop", ShopModelSchema);
