@@ -67,7 +67,9 @@ const removeFavorite = async (id, shopId) => {
 
 const getFavorites = async (id) => {
   try {
-    const favorites = await User.find({ _id: id }).populate('favorites');
+    const favorites = await User.find({ _id: id })
+      .populate('favorites')
+      .select('-password');
     return favorites;
   } catch (error) {
     console.log(error)
