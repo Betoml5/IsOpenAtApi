@@ -17,7 +17,10 @@ const createShop = (
   reviews = [],
   imageCover = "",
   imagesMenu = [],
-  location = {},
+  location = {
+    lat: 0,
+    lng: 0,
+  },
   schedule = {
     monday: "",
     tuesday: "",
