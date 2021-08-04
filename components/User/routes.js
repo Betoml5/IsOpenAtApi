@@ -104,7 +104,7 @@ router.get("/favorites/:userId?", async (req, res, next) => {
   }
 });
 
-router.get('/favorites/random/:userId?', async (req, res) => {
+router.get('/random-fav/:userId', async (req, res) => {
   const { userId } = req.params;
   try {
     const randomFavorite = await controller.getRandomFavorite(userId);
