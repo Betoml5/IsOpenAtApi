@@ -2,8 +2,8 @@ const User = require("./model");
 
 const getUser = async (id) => {
   try {
-    //With -password with avoid getting the password 
-    const user = await User.findById(id).select('-password')
+    //With -password with avoid getting the password
+    const user = await User.findById(id).select("-password");
     return user;
   } catch (error) {
     return error;
@@ -67,24 +67,29 @@ const removeFavorite = async (id, shopId) => {
 
 const getFavorites = async (id) => {
   try {
-    const user = await User.find({ _id: id })
-      .populate('favorites')
-    return user[0].favorites
+    const user = await User.find({ _id: id }).populate("favorites");
+    return user[0].favorites;
   } catch (error) {
-    console.log(error)
+    console.log(error);
     return error;
   }
 };
 
 const getRandomFavorite = async (id) => {
   try {
-    const user = await User.findById(id).populate('favorites');
-    const randomShop = Math.floor(Math.random() * (user?.favorites?.length - 0) + 0);
-    return user.favorites[randomShop]
+    const user = await User.findById(id).populate("favorites");
+    if (user.favorites.length > 0) {
+      const randomShop = Math.floor(
+        Math.random() * (user?.favorites?.length - 0) + 0
+      );
+      return user.favorites[randomShop];
+    } else {
+      return [];
+    }
   } catch (error) {
     return error;
   }
-}
+};
 
 const setImage = async (id, imageUrl) => {
   try {
@@ -106,5 +111,5 @@ module.exports = {
   removeFav: removeFavorite,
   getFavorites,
   setImage,
-  getRandomFavorite
+  getRandomFavorite,
 };
