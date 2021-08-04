@@ -69,14 +69,22 @@ const getFavorites = async (id) => {
   try {
     const user = await User.find({ _id: id })
       .populate('favorites')
-      .select('-password');
-    console.log(user[0].favorites)
     return user[0].favorites
   } catch (error) {
     console.log(error)
     return error;
   }
 };
+
+const getRandomFavorite = async (id) => {
+  try {
+    const user = await User.findById(id).populate('favorites');
+    const randomShop = Math.floor(Math.random() * (user?.favorites?.length - 0) + 0);
+    return user.favorites[randomShop]
+  } catch (error) {
+    return error;
+  }
+}
 
 const setImage = async (id, imageUrl) => {
   try {
@@ -98,4 +106,5 @@ module.exports = {
   removeFav: removeFavorite,
   getFavorites,
   setImage,
+  getRandomFavorite
 };

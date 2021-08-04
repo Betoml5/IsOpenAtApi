@@ -42,6 +42,12 @@ const getFavorites = (id) => {
   return favorites;
 };
 
+const getRandomFavorite = id => {
+  if (!id) return Promise.reject('Invalid ID');
+  const randomFavorite = store.getRandomFavorite(id);
+  return randomFavorite
+}
+
 const setImage = (id, imageUrl) => {
   if (!imageUrl) return Promise.reject("Need imageURL");
   const user = store.setImage(id, imageUrl);
@@ -57,4 +63,5 @@ module.exports = {
   getFavorites,
   removeFavorite,
   setImage,
+  getRandomFavorite
 };

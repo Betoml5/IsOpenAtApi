@@ -104,6 +104,16 @@ router.get("/favorites/:userId?", async (req, res, next) => {
   }
 });
 
+router.get('/favorites/random/:userId?', async (req, res) => {
+  const { userId } = req.params;
+  try {
+    const randomFavorite = await controller.getRandomFavorite(userId);
+    return response.success(req, res, randomFavorite, 200)
+  } catch (error) {
+    return response.error(req, res, error, 500)
+  }
+})
+
 router.patch("/image/:id", async (req, res, next) => {
   const { imageurl } = req.body;
   const { id } = req.params;
