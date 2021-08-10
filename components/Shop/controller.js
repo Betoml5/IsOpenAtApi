@@ -15,7 +15,8 @@ const createShop = async (
   reviews,
   schedule,
   imageCover,
-  imagesMenu
+  imagesMenu,
+  location
 ) => {
   const shop = store.create(
     name,
@@ -32,7 +33,8 @@ const createShop = async (
     reviews,
     schedule,
     imageCover,
-    imagesMenu
+    imagesMenu,
+    location
   );
   return shop;
 };
