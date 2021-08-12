@@ -24,4 +24,6 @@ app.use("/api/users", userRoutes);
 app.use("/api/shops", shopRoutes);
 app.use("/api/restaurants", restaurantRoutes); // Aqui va el archivo de rutas;
 
+
+
 module.exports = app;
