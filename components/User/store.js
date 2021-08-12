@@ -94,15 +94,10 @@ const removeShop = async (id, shopId) => {
 
 const getFavorites = async (id) => {
   try {
-<<<<<<< HEAD
-    const user = await User.find({ _id: id }).populate("favorites");
-    return user[0].favorites;
-=======
     const user = await User.find({ _id: id })
       .populate('favorites')
 
     return user[0].favorites
->>>>>>> development
   } catch (error) {
     console.log(error);
     return error;
@@ -146,10 +141,7 @@ module.exports = {
   getFavorites,
   setImage,
   getRandomFavorite,
-<<<<<<< HEAD
-=======
   addShop,
   removeShop
 
->>>>>>> development
 };
