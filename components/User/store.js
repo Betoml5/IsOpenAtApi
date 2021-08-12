@@ -2,8 +2,11 @@ const User = require("./model");
 
 const getUser = async (id) => {
   try {
-    //With -password with avoid getting the password
-    const user = await User.findById(id).select("-password");
+    //With -password with avoid getting the password 
+    const user = await User.findById(id)
+      .populate('favorites')
+      .populate('shops')
+      .select('-password')
     return user;
   } catch (error) {
     return error;
@@ -27,6 +30,7 @@ const createUser = async (username, email, password) => {
     newUser.password = password;
     newUser.image = "";
     newUser.admin = false;
+    newUser.owner = false
     newUser.save({ new: true });
     return newUser;
   } catch (error) {
@@ -65,10 +69,40 @@ const removeFavorite = async (id, shopId) => {
   }
 };
 
+const addShop = async (id, shopId) => {
+  try {
+    const user = await User.findById(id);
+    user.shops.push(shopId);
+    user.save({ new: true });
+    return user;
+  } catch (error) {
+    return error;
+  }
+}
+
+const removeShop = async (id, shopId) => {
+  try {
+    const user = await User.findById(id);
+    const shopIndex = user.favorites.indexOf(shopId);
+    user.shops.splice(shopIndex, 1);
+    user.save({ new: true });
+  } catch (error) {
+    return error;
+  }
+};
+
+
 const getFavorites = async (id) => {
   try {
+<<<<<<< HEAD
     const user = await User.find({ _id: id }).populate("favorites");
     return user[0].favorites;
+=======
+    const user = await User.find({ _id: id })
+      .populate('favorites')
+
+    return user[0].favorites
+>>>>>>> development
   } catch (error) {
     console.log(error);
     return error;
@@ -112,4 +146,10 @@ module.exports = {
   getFavorites,
   setImage,
   getRandomFavorite,
+<<<<<<< HEAD
+=======
+  addShop,
+  removeShop
+
+>>>>>>> development
 };
