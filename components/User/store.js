@@ -86,6 +86,7 @@ const removeShop = async (id, shopId) => {
     const shopIndex = user.favorites.indexOf(shopId);
     user.shops.splice(shopIndex, 1);
     user.save({ new: true });
+    return user;
   } catch (error) {
     return error;
   }
