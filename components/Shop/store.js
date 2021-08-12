@@ -17,6 +17,10 @@ const createShop = (
   reviews = [],
   imageCover = "",
   imagesMenu = [],
+  location = {
+    lat: 0,
+    lng: 0,
+  },
   schedule = {
     monday: "",
     tuesday: "",
@@ -46,6 +50,7 @@ const createShop = (
     newShop.reviews = reviews;
     newShop.imageCover = imageCover;
     newShop.imagesMenu = imagesMenu;
+    newShop.location = location;
     newShop.save({ new: true });
     return newShop;
   } catch (error) {
