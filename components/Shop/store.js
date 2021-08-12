@@ -2,7 +2,7 @@ const Shop = require("./model");
 
 const createShop = (
   name,
-  email,
+  // email,
   address,
   phone,
   openNow = false,
@@ -21,20 +21,48 @@ const createShop = (
     lat: 0,
     lng: 0,
   },
-  schedule = {
-    monday: "",
-    tuesday: "",
-    wednesday: "",
-    thursday: "",
-    friday: "",
-    saturday: "",
-    sunday: "",
-  }
+  schedule = [
+    {
+      day: "Lunes",
+      open: false,
+      range: []
+    },
+    {
+      day: "Martes",
+      open: false,
+      range: []
+    },
+    {
+      day: "Miercoles",
+      open: false,
+      range: []
+    },
+    {
+      day: "Jueves",
+      open: false,
+      range: []
+    },
+    {
+      day: "Viernes",
+      open: false,
+      range: []
+    },
+    {
+      day: "Sabado",
+      open: false,
+      range: []
+    },
+    {
+      day: "Domingo",
+      open: false,
+      range: []
+    }
+  ]
 ) => {
   try {
     const newShop = new Shop();
     newShop.name = name;
-    newShop.email = email;
+    // newShop.email = email;
     newShop.address = address;
     newShop.phone = phone;
     newShop.openNow = openNow;

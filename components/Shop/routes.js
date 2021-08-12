@@ -3,7 +3,7 @@ const controller = require("./controller");
 const router = express.Router();
 const response = require("../../network/response");
 
-router.get("/all", async (req, res, next) => {
+router.get("/all", async (req, res) => {
   try {
     const shops = await controller.getAll();
     return response.success(req, res, shops, 200);
@@ -12,7 +12,7 @@ router.get("/all", async (req, res, next) => {
   }
 });
 
-router.get("/shop/:id?", async (req, res, next) => {
+router.get("/shop/:id?", async (req, res) => {
   const { id } = req.params;
 
   try {
@@ -35,18 +35,18 @@ router.get("/name/", async (req, res) => {
   }
 });
 
-router.post("/create", async (req, res, next) => {
-  const { name, address, email, phone } = req.body;
+router.post("/create", async (req, res) => {
+  const { name, address, phone } = req.body;
 
   try {
-    const shop = await controller.create(name, email, address, phone);
+    const shop = await controller.create(name, address, phone);
     return response.success(req, res, shop, 201);
   } catch (error) {
     return response.error(req, res, error, 500);
   }
 });
 
-router.delete("/remove/:id?", async (req, res, next) => {
+router.delete("/remove/:id?", async (req, res) => {
   const { id } = req.params;
   try {
     const deletedId = await controller.delete(id);
@@ -57,7 +57,7 @@ router.delete("/remove/:id?", async (req, res, next) => {
 });
 
 // TODO -> Ver si realmente necesitamos esta ruta
-router.put("/update/:id?", async (req, res, next) => {
+router.put("/update/:id?", async (req, res) => {
   const { id } = req.params;
   const update = req.body;
   try {
@@ -68,7 +68,7 @@ router.put("/update/:id?", async (req, res, next) => {
   }
 });
 
-router.patch("/setpromo/:shopId?", async (req, res, next) => {
+router.patch("/setpromo/:shopId?", async (req, res) => {
   const { shopId } = req.params;
   try {
     const shop = await controller.setPromo(shopId);
@@ -78,7 +78,7 @@ router.patch("/setpromo/:shopId?", async (req, res, next) => {
   }
 });
 
-router.patch("/setHot/:shopId?", async (req, res, next) => {
+router.patch("/setHot/:shopId?", async (req, res) => {
   const { shopId } = req.params;
   try {
     const shop = await controller.setHot(shopId);
@@ -100,7 +100,7 @@ router.patch("/avgprice/:shopId?", async (req, res) => {
   }
 });
 
-router.patch("/setopen/:shopId?", async (req, res, next) => {
+router.patch("/setopen/:shopId?", async (req, res) => {
   const { shopId } = req.params;
   try {
     const shop = await controller.setOpen(shopId);
@@ -110,7 +110,7 @@ router.patch("/setopen/:shopId?", async (req, res, next) => {
   }
 });
 
-router.get("/famous", async (req, res, next) => {
+router.get("/famous", async (req, res) => {
   try {
     const famous = await controller.famous();
     return response.success(req, res, famous, 200);
@@ -119,7 +119,7 @@ router.get("/famous", async (req, res, next) => {
   }
 });
 
-router.patch("/setcode/:shopId", async (req, res, next) => {
+router.patch("/setcode/:shopId", async (req, res) => {
   const { shopId } = req.params;
   const { code } = req.body;
 
@@ -131,7 +131,7 @@ router.patch("/setcode/:shopId", async (req, res, next) => {
   }
 });
 
-router.patch("/avgtime/:shopId", async (req, res, next) => {
+router.patch("/avgtime/:shopId", async (req, res) => {
   const { shopId } = req.params;
   const { avgTime } = req.body;
   try {
@@ -142,7 +142,7 @@ router.patch("/avgtime/:shopId", async (req, res, next) => {
   }
 });
 
-router.patch("/rating/:shopId", async (req, res, next) => {
+router.patch("/rating/:shopId", async (req, res) => {
   const { shopId } = req.params;
   const { rating } = req.body;
   try {
@@ -153,7 +153,7 @@ router.patch("/rating/:shopId", async (req, res, next) => {
   }
 });
 
-router.patch("/shipping/:shopId", async (req, res, next) => {
+router.patch("/shipping/:shopId", async (req, res) => {
   const { shopId } = req.params;
   try {
     const shop = await controller.setShipping(shopId);
@@ -163,7 +163,7 @@ router.patch("/shipping/:shopId", async (req, res, next) => {
   }
 });
 
-router.patch("/highlight/:shopId", async (req, res, next) => {
+router.patch("/highlight/:shopId", async (req, res) => {
   const { shopId } = req.params;
   try {
     const shop = await controller.setHighLight(shopId);
