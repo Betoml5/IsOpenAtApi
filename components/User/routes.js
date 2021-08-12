@@ -126,4 +126,27 @@ router.patch("/image/:id", async (req, res, next) => {
   }
 });
 
+router.patch("/owner/addshop/:userId/:shopId", async (req, res) => {
+  const { userId, shopId } = req.params;
+
+  try {
+    const userUpdated = await controller.addShop(userId, shopId);
+    return response.success(req, res, userUpdated, 200);
+  } catch (error) {
+    return response.error(req, res, error, 500)
+  }
+
+})
+
+router.delete("/owner/removeshop/:userId/:shopId", async (req, res) => {
+  const { userId, shopId } = req.params;
+
+  try {
+    const userUpdated = await controller.removeShop(userId, shopId);
+    return response.success(req, res, userUpdated, 200);
+  } catch (error) {
+    return response.error(req, res, error, 500)
+  }
+})
+
 module.exports = router;
