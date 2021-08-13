@@ -36,10 +36,10 @@ router.get("/name/", async (req, res) => {
 });
 
 router.post("/create", async (req, res) => {
-  const { name, address, phone } = req.body;
+  const { name, address, phone, location } = req.body;
 
   try {
-    const shop = await controller.create(name, address, phone);
+    const shop = await controller.create(name, address, phone, location);
     return response.success(req, res, shop, 201);
   } catch (error) {
     return response.error(req, res, error, 500);

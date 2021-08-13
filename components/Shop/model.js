@@ -12,12 +12,13 @@ const ShopModelSchema = new Schema({
   highLight: Boolean,
   rating: Number,
   openNow: Boolean,
-  schedule: [{
-    day: String,
-    open: Boolean,
-    range: []
-
-  }],
+  schedule: [
+    {
+      day: String,
+      open: Boolean,
+      range: [],
+    },
+  ],
   hot: Boolean,
   promo: Boolean,
   phone: String,
@@ -30,7 +31,10 @@ const ShopModelSchema = new Schema({
   ],
   imageCover: String,
   imagesMenu: [],
-  location: {},
+  location: {
+    lat: Number,
+    lng: Number,
+  },
 });
 
 module.exports = model("Shop", ShopModelSchema);
