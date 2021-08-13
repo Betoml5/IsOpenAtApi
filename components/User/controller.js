@@ -54,6 +54,19 @@ const setImage = (id, imageUrl) => {
   return user;
 };
 
+const addShop = (id, shopId) => {
+  if (!id || !shopId) return Promise.reject("Need shopId or id");
+  const user = store.addShop(id, shopId);
+  return user;
+}
+
+const removeShop = (id, shopId) => {
+  if (!id || !shopId) return Promise.reject("Need shopId or id");
+  const user = store.removeShop(id, shopId);
+  return user;
+}
+
+
 module.exports = {
   getUser,
   getUsers,
@@ -63,5 +76,7 @@ module.exports = {
   getFavorites,
   removeFavorite,
   setImage,
-  getRandomFavorite
+  getRandomFavorite,
+  addShop,
+  removeShop
 };
