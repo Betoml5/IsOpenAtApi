@@ -2,9 +2,9 @@ const Shop = require("./model");
 
 const createShop = (
   name,
-  // email,
   address,
   phone,
+  location,
   openNow = false,
   hot = false,
   promo = false,
@@ -17,46 +17,43 @@ const createShop = (
   reviews = [],
   imageCover = "",
   imagesMenu = [],
-  location = {
-    lat: 0,
-    lng: 0,
-  },
+
   schedule = [
     {
       day: "Lunes",
       open: false,
-      range: []
+      range: [],
     },
     {
       day: "Martes",
       open: false,
-      range: []
+      range: [],
     },
     {
       day: "Miercoles",
       open: false,
-      range: []
+      range: [],
     },
     {
       day: "Jueves",
       open: false,
-      range: []
+      range: [],
     },
     {
       day: "Viernes",
       open: false,
-      range: []
+      range: [],
     },
     {
       day: "Sabado",
       open: false,
-      range: []
+      range: [],
     },
     {
       day: "Domingo",
       open: false,
-      range: []
-    }
+      range: [],
+    },
   ]
 ) => {
   try {

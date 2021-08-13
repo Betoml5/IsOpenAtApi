@@ -2,8 +2,9 @@ const store = require("./store");
 
 const createShop = async (
   name,
-  email,
   address,
+  phone,
+  location,
   openNow,
   avgPrice,
   rating,
@@ -15,13 +16,13 @@ const createShop = async (
   reviews,
   schedule,
   imageCover,
-  imagesMenu,
-  location
+  imagesMenu
 ) => {
   const shop = store.create(
     name,
-    email,
     address,
+    phone,
+    location,
     openNow,
     avgPrice,
     rating,
@@ -33,8 +34,7 @@ const createShop = async (
     reviews,
     schedule,
     imageCover,
-    imagesMenu,
-    location
+    imagesMenu
   );
   return shop;
 };
