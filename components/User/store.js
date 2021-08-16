@@ -2,11 +2,11 @@ const User = require("./model");
 
 const getUser = async (id) => {
   try {
-    //With -password with avoid getting the password 
+    //With -password with avoid getting the password
     const user = await User.findById(id)
-      .populate('favorites')
-      .populate('shops')
-      .select('-password')
+      .populate("favorites")
+      .populate("shops")
+      .select("-password");
     return user;
   } catch (error) {
     return error;
@@ -30,7 +30,7 @@ const createUser = async (username, email, password) => {
     newUser.password = password;
     newUser.image = "";
     newUser.admin = false;
-    newUser.owner = false
+    newUser.owner = false;
     newUser.save({ new: true });
     return newUser;
   } catch (error) {
@@ -78,7 +78,7 @@ const addShop = async (id, shopId) => {
   } catch (error) {
     return error;
   }
-}
+};
 
 const removeShop = async (id, shopId) => {
   try {
@@ -86,33 +86,38 @@ const removeShop = async (id, shopId) => {
     const shopIndex = user.favorites.indexOf(shopId);
     user.shops.splice(shopIndex, 1);
     user.save({ new: true });
+    return user;
   } catch (error) {
     return error;
   }
 };
 
-
 const getFavorites = async (id) => {
   try {
-    const user = await User.find({ _id: id })
-      .populate('favorites')
+    const user = await User.find({ _id: id }).populate("favorites");
 
-    return user[0].favorites
+    return user[0].favorites;
   } catch (error) {
-    console.log(error)
+    console.log(error);
     return error;
   }
 };
 
 const getRandomFavorite = async (id) => {
   try {
-    const user = await User.findById(id).populate('favorites');
-    const randomShop = Math.floor(Math.random() * (user?.favorites?.length - 0) + 0);
-    return user.favorites[randomShop]
+    const user = await User.findById(id).populate("favorites");
+    if (user.favorites.length > 0) {
+      const randomShop = Math.floor(
+        Math.random() * (user?.favorites?.length - 0) + 0
+      );
+      return user.favorites[randomShop];
+    } else {
+      return [];
+    }
   } catch (error) {
     return error;
   }
-}
+};
 
 const setImage = async (id, imageUrl) => {
   try {
@@ -136,6 +141,5 @@ module.exports = {
   setImage,
   getRandomFavorite,
   addShop,
-  removeShop
-
+  removeShop,
 };
