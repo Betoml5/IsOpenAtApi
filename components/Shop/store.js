@@ -325,6 +325,18 @@ const pushImageMenu = async (shopId, imageURL) => {
   }
 };
 
+const removeImageMenu = async (shopId, imageURL) => {
+  try {
+    const shop = await Shop.findById(shopId);
+    const imgIndex = await shop.imagesMenu.indexOf(imageURL);
+    shop.imagesMenu.splice(imgIndex, 1);
+    shop.save({ new: true });
+    return shop;
+  } catch (error) {
+    return error;
+  }
+};
+
 module.exports = {
   create: createShop,
   delete: deleteShop,
@@ -348,4 +360,5 @@ module.exports = {
   setAvgPrice,
   setImageCover,
   pushImageMenu,
+  removeImageMenu,
 };

@@ -232,4 +232,15 @@ router.patch("/image-menu/:shopId", async (req, res) => {
   }
 });
 
+router.delete("/image-menu/:shopId", async (req, res) => {
+  const { shopId } = req.params;
+  const { imageURL } = req.body;
+  try {
+    const shop = await controller.removeImageMenu(shopId, imageURL);
+    return response.success(req, res, shop, 200);
+  } catch (error) {
+    return response.error(req, res, error, 500);
+  }
+});
+
 module.exports = router;
