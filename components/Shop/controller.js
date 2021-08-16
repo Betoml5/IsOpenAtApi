@@ -147,6 +147,11 @@ const pushImageMenu = async (shopId, imageURL) => {
   return shop;
 };
 
+const removeImageMenu = async (shopId, imgURL) => {
+  const shop = await store.removeImageMenu(shopId, imgURL);
+  return shop;
+};
+
 module.exports = {
   create: createShop,
   delete: deleteShop,
@@ -169,4 +174,5 @@ module.exports = {
   setAvgPrice,
   pushImageMenu,
   setImageCover,
+  removeImageMenu,
 };
