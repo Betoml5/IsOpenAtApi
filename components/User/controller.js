@@ -11,11 +11,10 @@ const getUsers = () => {
   return users;
 };
 
-const createUser = (username, email, password) => {
-  if (!username || !email || !password)
-    return Promise.reject("Invalid username | Email | Password");
-  const user = store.create(username, email, password);
-  return user;
+const createUser = (user) => {
+  if (!user) return Promise.reject("Need user data");
+  const userCreated = store.create(user);
+  return userCreated;
 };
 
 const deleteUser = (id) => {
@@ -38,15 +37,15 @@ const removeFavorite = (id, shopId) => {
 
 const getFavorites = (id) => {
   if (!id) return Promise.reject("Invalid ID");
-  const favorites = store.getFavorites(id)
+  const favorites = store.getFavorites(id);
   return favorites;
 };
 
-const getRandomFavorite = id => {
-  if (!id) return Promise.reject('Invalid ID');
+const getRandomFavorite = (id) => {
+  if (!id) return Promise.reject("Invalid ID");
   const randomFavorite = store.getRandomFavorite(id);
-  return randomFavorite
-}
+  return randomFavorite;
+};
 
 const setImage = (id, imageUrl) => {
   if (!imageUrl) return Promise.reject("Need imageURL");
@@ -58,14 +57,13 @@ const addShop = (id, shopId) => {
   if (!id || !shopId) return Promise.reject("Need shopId or id");
   const user = store.addShop(id, shopId);
   return user;
-}
+};
 
 const removeShop = (id, shopId) => {
   if (!id || !shopId) return Promise.reject("Need shopId or id");
   const user = store.removeShop(id, shopId);
   return user;
-}
-
+};
 
 module.exports = {
   getUser,
@@ -78,5 +76,5 @@ module.exports = {
   setImage,
   getRandomFavorite,
   addShop,
-  removeShop
+  removeShop,
 };

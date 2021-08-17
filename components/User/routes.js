@@ -7,10 +7,10 @@ const response = require("../../network/response");
 const jwt = require("jsonwebtoken");
 
 router.post("/create", async (req, res, next) => {
-  const { username, email, password } = req.body;
+  const user = req.body;
   try {
-    const user = await controller.createUser(username, email, password);
-    return response.success(req, res, user, 201);
+    const userCreated = await controller.createUser(user);
+    return response.success(req, res, userCreated, 201);
   } catch (error) {
     return response.error(req, res, error, 500);
   }
@@ -104,15 +104,15 @@ router.get("/favorites/:userId?", async (req, res, next) => {
   }
 });
 
-router.get('/random-fav/:userId', async (req, res) => {
+router.get("/random-fav/:userId", async (req, res) => {
   const { userId } = req.params;
   try {
     const randomFavorite = await controller.getRandomFavorite(userId);
-    return response.success(req, res, randomFavorite, 200)
+    return response.success(req, res, randomFavorite, 200);
   } catch (error) {
-    return response.error(req, res, error, 500)
+    return response.error(req, res, error, 500);
   }
-})
+});
 
 router.patch("/image/:id", async (req, res, next) => {
   const { imageurl } = req.body;
@@ -133,10 +133,9 @@ router.patch("/owner/addshop/:userId/:shopId", async (req, res) => {
     const userUpdated = await controller.addShop(userId, shopId);
     return response.success(req, res, userUpdated, 200);
   } catch (error) {
-    return response.error(req, res, error, 500)
+    return response.error(req, res, error, 500);
   }
-
-})
+});
 
 router.delete("/owner/removeshop/:userId/:shopId", async (req, res) => {
   const { userId, shopId } = req.params;
@@ -145,8 +144,8 @@ router.delete("/owner/removeshop/:userId/:shopId", async (req, res) => {
     const userUpdated = await controller.removeShop(userId, shopId);
     return response.success(req, res, userUpdated, 200);
   } catch (error) {
-    return response.error(req, res, error, 500)
+    return response.error(req, res, error, 500);
   }
-})
+});
 
 module.exports = router;

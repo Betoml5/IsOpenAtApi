@@ -22,15 +22,15 @@ const getUsers = async () => {
   }
 };
 
-const createUser = async (username, email, password) => {
+const createUser = async (user) => {
   try {
-    const newUser = new User();
-    newUser.username = username;
-    newUser.email = email;
-    newUser.password = password;
-    newUser.image = "";
-    newUser.admin = false;
-    newUser.owner = false;
+    const newUser = new User(user)
+    // newUser.username = username;
+    // newUser.email = email;
+    // newUser.password = password;
+    // newUser.image = "";
+    // newUser.admin = false;
+    // newUser.owner = false;
     newUser.save({ new: true });
     return newUser;
   } catch (error) {
