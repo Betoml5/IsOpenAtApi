@@ -20,6 +20,7 @@ router.put("/update/:userId", async (req, res) => {
   const { userId } = req.params;
   const update = req.body;
   try {
+    
     const updatedUser = await controller.updateUser(userId, update);
     return response.success(req, res, updatedUser, 200);
   } catch (error) {

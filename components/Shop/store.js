@@ -337,6 +337,15 @@ const removeImageMenu = async (shopId, imageURL) => {
   }
 };
 
+const getOpenShops = async () => {
+  try {
+    const shops = await Shop.find({ openNow: true });
+    return shops;
+  } catch (error) {
+    return error;
+  }
+};
+
 module.exports = {
   create: createShop,
   delete: deleteShop,
@@ -361,4 +370,5 @@ module.exports = {
   setImageCover,
   pushImageMenu,
   removeImageMenu,
+  getOpenShops,
 };

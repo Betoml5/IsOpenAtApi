@@ -27,7 +27,6 @@ router.get("/shop/:id?", async (req, res) => {
 router.get("/name/", async (req, res) => {
   const { name } = req.query;
   try {
-    console.log(req.query.name);
     const shops = await controller.getShopByName(name);
     return response.success(req, res, shops, 200);
   } catch (error) {
@@ -36,7 +35,8 @@ router.get("/name/", async (req, res) => {
   }
 });
 
-router.post("/create",
+router.post(
+  "/create",
   passport.authenticate("jwt", { session: false }),
   async (req, res) => {
     const { name, address, phone, location } = req.body;
@@ -47,9 +47,11 @@ router.post("/create",
     } catch (error) {
       return response.error(req, res, error, 500);
     }
-  });
+  }
+);
 
-router.delete("/remove/:id?",
+router.delete(
+  "/remove/:id?",
   passport.authenticate("jwt", { session: false }),
   async (req, res) => {
     const { id } = req.params;
@@ -59,10 +61,12 @@ router.delete("/remove/:id?",
     } catch (error) {
       return response.error(req, res, error, 500);
     }
-  });
+  }
+);
 
 // TODO -> Ver si realmente necesitamos esta ruta
-router.put("/update/:id?",
+router.put(
+  "/update/:id?",
   passport.authenticate("jwt", { session: false }),
   async (req, res) => {
     const { id } = req.params;
@@ -73,9 +77,11 @@ router.put("/update/:id?",
     } catch (error) {
       return response.error(req, res, error, 500);
     }
-  });
+  }
+);
 
-router.patch("/setpromo/:shopId?",
+router.patch(
+  "/setpromo/:shopId?",
   passport.authenticate("jwt", { session: false }),
   async (req, res) => {
     const { shopId } = req.params;
@@ -85,9 +91,11 @@ router.patch("/setpromo/:shopId?",
     } catch (error) {
       return response.error(req, res, error, 500);
     }
-  });
+  }
+);
 
-router.patch("/setHot/:shopId?",
+router.patch(
+  "/setHot/:shopId?",
   passport.authenticate("jwt", { session: false }),
   async (req, res) => {
     const { shopId } = req.params;
@@ -97,23 +105,27 @@ router.patch("/setHot/:shopId?",
     } catch (error) {
       return response.error(req, res, error, 500);
     }
-  });
+  }
+);
 
-router.patch("/avgprice/:shopId?",
+router.patch(
+  "/avgprice/:shopId?",
   passport.authenticate("jwt", { session: false }),
   async (req, res) => {
     const { shopId } = req.params;
     const { avgPrice } = req.body;
     try {
       const shop = await controller.setAvgPrice(shopId, avgPrice);
-      console.log(shop);
+
       return response.success(req, res, shop, 200);
     } catch (error) {
       return response.error(req, res, error, 500);
     }
-  });
+  }
+);
 
-router.patch("/setopen/:shopId?",
+router.patch(
+  "/setopen/:shopId?",
   passport.authenticate("jwt", { session: false }),
   async (req, res) => {
     const { shopId } = req.params;
@@ -123,7 +135,8 @@ router.patch("/setopen/:shopId?",
     } catch (error) {
       return response.error(req, res, error, 500);
     }
-  });
+  }
+);
 
 router.get("/famous", async (req, res) => {
   try {
@@ -134,7 +147,8 @@ router.get("/famous", async (req, res) => {
   }
 });
 
-router.patch("/setcode/:shopId",
+router.patch(
+  "/setcode/:shopId",
   passport.authenticate("jwt", { session: false }),
   async (req, res) => {
     const { shopId } = req.params;
@@ -146,9 +160,11 @@ router.patch("/setcode/:shopId",
     } catch (error) {
       return response.error(req, res, error, 500);
     }
-  });
+  }
+);
 
-router.patch("/avgtime/:shopId",
+router.patch(
+  "/avgtime/:shopId",
   passport.authenticate("jwt", { session: false }),
   async (req, res) => {
     const { shopId } = req.params;
@@ -159,9 +175,11 @@ router.patch("/avgtime/:shopId",
     } catch (error) {
       return response.error(req, res, error, 500);
     }
-  });
+  }
+);
 
-router.patch("/rating/:shopId",
+router.patch(
+  "/rating/:shopId",
   passport.authenticate("jwt", { session: false }),
   async (req, res) => {
     const { shopId } = req.params;
@@ -172,9 +190,11 @@ router.patch("/rating/:shopId",
     } catch (error) {
       return response.error(req, res, error, 500);
     }
-  });
+  }
+);
 
-router.patch("/shipping/:shopId",
+router.patch(
+  "/shipping/:shopId",
   passport.authenticate("jwt", { session: false }),
   async (req, res) => {
     const { shopId } = req.params;
@@ -184,9 +204,11 @@ router.patch("/shipping/:shopId",
     } catch (error) {
       return response.error(req, res, error, 500);
     }
-  });
+  }
+);
 
-router.patch("/highlight/:shopId",
+router.patch(
+  "/highlight/:shopId",
   passport.authenticate("jwt", { session: false }),
   async (req, res) => {
     const { shopId } = req.params;
@@ -196,9 +218,11 @@ router.patch("/highlight/:shopId",
     } catch (error) {
       return response.error(req, res, error, 500);
     }
-  });
+  }
+);
 
-router.patch("/review/:shopId",
+router.patch(
+  "/review/:shopId",
   passport.authenticate("jwt", { session: false }),
   async (req, res) => {
     const { shopId } = req.params;
@@ -216,7 +240,8 @@ router.patch("/review/:shopId",
     } catch (error) {
       return response.error(req, res, error, 500);
     }
-  });
+  }
+);
 
 router.get("/expensive", async (req, res) => {
   try {
@@ -265,6 +290,15 @@ router.delete("/image-menu/:shopId", async (req, res) => {
   try {
     const shop = await controller.removeImageMenu(shopId, imageURL);
     return response.success(req, res, shop, 200);
+  } catch (error) {
+    return response.error(req, res, error, 500);
+  }
+});
+
+router.get("/open", async (req, res) => {
+  try {
+    const shops = await controller.getOpenShops();
+    return response.success(req, res, shops, 200);
   } catch (error) {
     return response.error(req, res, error, 500);
   }

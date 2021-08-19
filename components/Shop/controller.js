@@ -108,50 +108,63 @@ const famous = async () => {
 };
 
 const setCode = async (shopId, code) => {
+  if (!shopId || !code) return Promise.reject("Need ShopId | Code");
   const shop = await store.setCode(shopId, code);
   return shop;
 };
 
 const setAvgTime = async (shopId, avgTime) => {
+  if (!shopId) return Promise.reject("Need ShopId");
   const shop = await store.setAvg(shopId, avgTime);
   return shop;
 };
 
 const setRating = async (shopId, rating) => {
+  if (!shopId) return Promise.reject("Need ShopId");
   const shop = await store.setRating(shopId, rating);
   return shop;
 };
 
 const setShipping = async (shopId) => {
+  if (!shopId) return Promise.reject("Need ShopId");
   const shop = await store.setShipping(shopId);
   return shop;
 };
 
 const setHighLight = async (shopId) => {
+  if (!shopId) return Promise.reject("Need ShopId");
   const setHigh = await store.setHighLight(shopId);
   return setHigh;
 };
 
 const setReview = async (shopId, review) => {
+  if (!shopId || !review) return Promise.reject("Need ShopId | review");
   const shop = await store.setReview(shopId, review);
   return shop;
 };
 
 const setImageCover = async (shopId, imageURL) => {
+  if (!shopId || !imageURL) return Promise.reject("Need ShopId | imgURL");
   const shop = await store.setImageCover(shopId, imageURL);
   return shop;
 };
 
 const pushImageMenu = async (shopId, imageURL) => {
+  if (!shopId || !imageURL) return Promise.reject("Need ShopId | imgURL");
   const shop = await store.pushImageMenu(shopId, imageURL);
   return shop;
 };
 
 const removeImageMenu = async (shopId, imgURL) => {
+  if (!shopId || !imageURL) return Promise.reject("Need ShopId | imgURL");
   const shop = await store.removeImageMenu(shopId, imgURL);
   return shop;
 };
 
+const getOpenShops = async () => {
+  const shops = await store.getOpenShops();
+  return shops;
+}
 module.exports = {
   create: createShop,
   delete: deleteShop,
@@ -175,4 +188,6 @@ module.exports = {
   pushImageMenu,
   setImageCover,
   removeImageMenu,
+
+  getOpenShops
 };
