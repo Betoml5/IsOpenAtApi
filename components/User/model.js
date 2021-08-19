@@ -7,7 +7,7 @@ const UserModelSchema = new Schema({
   username: { type: String },
   email: { type: String, unique: true, lowercase: true },
   password: { type: String, required: true },
-  favorites: [{ type: Schema.Types.ObjectId, unique: true, ref: "Shop" }],
+  favorites: [{ type: Schema.Types.ObjectId, ref: "Shop" }],
   shops: [{ type: Schema.Types.ObjectId, ref: "Shop" }],
   image: { type: String, default: "" },
   admin: { type: Boolean, default: false },
