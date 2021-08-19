@@ -24,7 +24,7 @@ const getUsers = async () => {
 
 const createUser = async (user) => {
   try {
-    const newUser = new User(user)
+    const newUser = new User(user);
     // newUser.username = username;
     // newUser.email = email;
     // newUser.password = password;
@@ -33,6 +33,15 @@ const createUser = async (user) => {
     // newUser.owner = false;
     newUser.save({ new: true });
     return newUser;
+  } catch (error) {
+    return error;
+  }
+};
+
+const updateUser = async (id, update) => {
+  try {
+    const updatedUser = await User.findOneAndUpdate(id, update, { new: true });
+    return updatedUser;
   } catch (error) {
     return error;
   }
@@ -141,4 +150,5 @@ module.exports = {
   getRandomFavorite,
   addShop,
   removeShop,
+  updateUser,
 };

@@ -7,11 +7,11 @@ const UserModelSchema = new Schema({
   username: { type: String },
   email: { type: String, unique: true, lowercase: true },
   password: { type: String, required: true },
-  favorites: [{ type: Schema.Types.ObjectId, ref: 'Shop' }],
-  shops: [{ type: Schema.Types.ObjectId, ref: 'Shop' }],
-  image: String,
-  admin: Boolean,
-  owner: Boolean,
+  favorites: [{ type: Schema.Types.ObjectId, ref: "Shop" }],
+  shops: [{ type: Schema.Types.ObjectId, ref: "Shop" }],
+  image: { type: String, default: "" },
+  admin: { type: Boolean, default: false },
+  owner: { type: Boolean, default: false },
 });
 
 //Aqui lo que hacemos es que antes de que se guarde el usuario, vamos a encriptar la constraseña

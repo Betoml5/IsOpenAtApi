@@ -17,6 +17,12 @@ const createUser = (user) => {
   return userCreated;
 };
 
+const updateUser = (id, update) => {
+  if (!id) Promise.reject("Need id");
+  const userUpdated = store.updateUser(id, update);
+  return userUpdated;
+};
+
 const deleteUser = (id) => {
   if (!id) return Promise.reject("Invalid ID");
   const user = store.delete(id);
@@ -77,4 +83,5 @@ module.exports = {
   getRandomFavorite,
   addShop,
   removeShop,
+  updateUser,
 };

@@ -16,6 +16,17 @@ router.post("/create", async (req, res, next) => {
   }
 });
 
+router.put("/update/:userId", async (req, res) => {
+  const { userId } = req.params;
+  const update = req.body;
+  try {
+    const updatedUser = await controller.updateUser(userId, update);
+    return response.success(req, res, updatedUser, 200);
+  } catch (error) {
+    return response.error(req, res, error, 500);
+  }
+});
+
 router.post("/login", async (req, res, next) => {
   passport.authenticate("login", async (err, user, info) => {
     try {
