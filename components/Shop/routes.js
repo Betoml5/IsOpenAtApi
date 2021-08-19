@@ -2,6 +2,7 @@ const express = require("express");
 const controller = require("./controller");
 const router = express.Router();
 const response = require("../../network/response");
+const passport = require("passport");
 
 router.get("/all", async (req, res) => {
   try {
@@ -35,80 +36,94 @@ router.get("/name/", async (req, res) => {
   }
 });
 
-router.post("/create", async (req, res) => {
-  const { name, address, phone, location } = req.body;
+router.post("/create",
+  passport.authenticate("jwt", { session: false }),
+  async (req, res) => {
+    const { name, address, phone, location } = req.body;
 
-  try {
-    const shop = await controller.create(name, address, phone, location);
-    return response.success(req, res, shop, 201);
-  } catch (error) {
-    return response.error(req, res, error, 500);
-  }
-});
+    try {
+      const shop = await controller.create(name, address, phone, location);
+      return response.success(req, res, shop, 201);
+    } catch (error) {
+      return response.error(req, res, error, 500);
+    }
+  });
 
-router.delete("/remove/:id?", async (req, res) => {
-  const { id } = req.params;
-  try {
-    const deletedId = await controller.delete(id);
-    return response.success(req, res, deletedId, 200);
-  } catch (error) {
-    return response.error(req, res, error, 500);
-  }
-});
+router.delete("/remove/:id?",
+  passport.authenticate("jwt", { session: false }),
+  async (req, res) => {
+    const { id } = req.params;
+    try {
+      const deletedId = await controller.delete(id);
+      return response.success(req, res, deletedId, 200);
+    } catch (error) {
+      return response.error(req, res, error, 500);
+    }
+  });
 
 // TODO -> Ver si realmente necesitamos esta ruta
-router.put("/update/:id?", async (req, res) => {
-  const { id } = req.params;
-  const update = req.body;
-  try {
-    const shopId = await controller.update(id, update);
-    return response.success(req, res, shopId, 200);
-  } catch (error) {
-    return response.error(req, res, error, 500);
-  }
-});
+router.put("/update/:id?",
+  passport.authenticate("jwt", { session: false }),
+  async (req, res) => {
+    const { id } = req.params;
+    const update = req.body;
+    try {
+      const shopId = await controller.update(id, update);
+      return response.success(req, res, shopId, 200);
+    } catch (error) {
+      return response.error(req, res, error, 500);
+    }
+  });
 
-router.patch("/setpromo/:shopId?", async (req, res) => {
-  const { shopId } = req.params;
-  try {
-    const shop = await controller.setPromo(shopId);
-    return response.success(req, res, shop, 200);
-  } catch (error) {
-    return response.error(req, res, error, 500);
-  }
-});
+router.patch("/setpromo/:shopId?",
+  passport.authenticate("jwt", { session: false }),
+  async (req, res) => {
+    const { shopId } = req.params;
+    try {
+      const shop = await controller.setPromo(shopId);
+      return response.success(req, res, shop, 200);
+    } catch (error) {
+      return response.error(req, res, error, 500);
+    }
+  });
 
-router.patch("/setHot/:shopId?", async (req, res) => {
-  const { shopId } = req.params;
-  try {
-    const shop = await controller.setHot(shopId);
-    return response.success(req, res, shop, 200);
-  } catch (error) {
-    return response.error(req, res, error, 500);
-  }
-});
+router.patch("/setHot/:shopId?",
+  passport.authenticate("jwt", { session: false }),
+  async (req, res) => {
+    const { shopId } = req.params;
+    try {
+      const shop = await controller.setHot(shopId);
+      return response.success(req, res, shop, 200);
+    } catch (error) {
+      return response.error(req, res, error, 500);
+    }
+  });
 
-router.patch("/avgprice/:shopId?", async (req, res) => {
-  const { shopId } = req.params;
-  const { avgPrice } = req.body;
-  try {
-    const shop = await controller.setAvgPrice(shopId, avgPrice);
-    console.log(shop);
-    return response.success(req, res, shop, 200);
-  } catch (error) {
-    return response.error(req, res, error, 500);
-  }
-});
+router.patch("/avgprice/:shopId?",
+  passport.authenticate("jwt", { session: false }),
+  async (req, res) => {
+    const { shopId } = req.params;
+    const { avgPrice } = req.body;
+    try {
+      const shop = await controller.setAvgPrice(shopId, avgPrice);
+      console.log(shop);
+      return response.success(req, res, shop, 200);
+    } catch (error) {
+      return response.error(req, res, error, 500);
+    }
+  });
 
-router.patch("/setopen/:shopId?", async (req, res) => {
-  const { shopId } = req.params;
-  try {
-    const shop = await controller.setOpen(shopId);
-    return response.success(req, res, shop, 200);
-  } catch (error) {
-    return response.error(req, res, error, 500);
-  }
-});
+router.patch("/setopen/:shopId?",
+  passport.authenticate("jwt", { session: false }),
+  async (req, res) => {
+    const { shopId } = req.params;
+    try {
+      const shop = await controller.setOpen(shopId);
+      return response.success(req, res, shop, 200);
+    } catch (error) {
+      return response.error(req, res, error, 500);
+    }
+  });
 
 router.get("/famous", async (req, res) => {
   try {
@@ -119,77 +134,89 @@ router.get("/famous", async (req, res) => {
   }
 });
 
-router.patch("/setcode/:shopId", async (req, res) => {
-  const { shopId } = req.params;
-  const { code } = req.body;
+router.patch("/setcode/:shopId",
+  passport.authenticate("jwt", { session: false }),
+  async (req, res) => {
+    const { shopId } = req.params;
+    const { code } = req.body;
 
-  try {
-    const shop = await controller.setCode(shopId, code);
-    return response.success(req, res, shop, 200);
-  } catch (error) {
-    return response.error(req, res, error, 500);
-  }
-});
+    try {
+      const shop = await controller.setCode(shopId, code);
+      return response.success(req, res, shop, 200);
+    } catch (error) {
+      return response.error(req, res, error, 500);
+    }
+  });
 
-router.patch("/avgtime/:shopId", async (req, res) => {
-  const { shopId } = req.params;
-  const { avgTime } = req.body;
-  try {
-    const shop = await controller.setAvgTime(shopId, avgTime);
-    return response.success(req, res, shop, 200);
-  } catch (error) {
-    return response.error(req, res, error, 500);
-  }
-});
+router.patch("/avgtime/:shopId",
+  passport.authenticate("jwt", { session: false }),
+  async (req, res) => {
+    const { shopId } = req.params;
+    const { avgTime } = req.body;
+    try {
+      const shop = await controller.setAvgTime(shopId, avgTime);
+      return response.success(req, res, shop, 200);
+    } catch (error) {
+      return response.error(req, res, error, 500);
+    }
+  });
 
-router.patch("/rating/:shopId", async (req, res) => {
-  const { shopId } = req.params;
-  const { rating } = req.body;
-  try {
-    const shop = await controller.setRating(shopId, rating);
-    response.success(req, res, shop, 200);
-  } catch (error) {
-    return response.error(req, res, error, 500);
-  }
-});
+router.patch("/rating/:shopId",
+  passport.authenticate("jwt", { session: false }),
+  async (req, res) => {
+    const { shopId } = req.params;
+    const { rating } = req.body;
+    try {
+      const shop = await controller.setRating(shopId, rating);
+      response.success(req, res, shop, 200);
+    } catch (error) {
+      return response.error(req, res, error, 500);
+    }
+  });
 
-router.patch("/shipping/:shopId", async (req, res) => {
-  const { shopId } = req.params;
-  try {
-    const shop = await controller.setShipping(shopId);
-    return response.success(req, res, shop, 200);
-  } catch (error) {
-    return response.error(req, res, error, 500);
-  }
-});
+router.patch("/shipping/:shopId",
+  passport.authenticate("jwt", { session: false }),
+  async (req, res) => {
+    const { shopId } = req.params;
+    try {
+      const shop = await controller.setShipping(shopId);
+      return response.success(req, res, shop, 200);
+    } catch (error) {
+      return response.error(req, res, error, 500);
+    }
+  });
 
-router.patch("/highlight/:shopId", async (req, res) => {
-  const { shopId } = req.params;
-  try {
-    const shop = await controller.setHighLight(shopId);
-    return response.success(req, res, shop, 200);
-  } catch (error) {
-    return response.error(req, res, error, 500);
-  }
-});
+router.patch("/highlight/:shopId",
+  passport.authenticate("jwt", { session: false }),
+  async (req, res) => {
+    const { shopId } = req.params;
+    try {
+      const shop = await controller.setHighLight(shopId);
+      return response.success(req, res, shop, 200);
+    } catch (error) {
+      return response.error(req, res, error, 500);
+    }
+  });
 
-router.patch("/review/:shopId", async (req, res) => {
-  const { shopId } = req.params;
-  const { email } = req.body;
-  const { name, text } = req.query;
+router.patch("/review/:shopId",
+  passport.authenticate("jwt", { session: false }),
+  async (req, res) => {
+    const { shopId } = req.params;
+    const { email } = req.body;
+    const { name, text } = req.query;
 
-  try {
-    const review = {
-      name,
-      text,
-      email,
-    };
-    const shop = await controller.setReview(shopId, review);
-    return response.success(req, res, shop, 200);
-  } catch (error) {
-    return response.error(req, res, error, 500);
-  }
-});
+    try {
+      const review = {
+        name,
+        text,
+        email,
+      };
+      const shop = await controller.setReview(shopId, review);
+      return response.success(req, res, shop, 200);
+    } catch (error) {
+      return response.error(req, res, error, 500);
+    }
+  });
 
 router.get("/expensive", async (req, res) => {
   try {
